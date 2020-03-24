@@ -1,0 +1,54 @@
+/* 
+  Localizable.strings
+  Authenticator
+
+  Copyright © 2019 Ping Identity. All rights reserved.
+*/
+
+
+//Notifications
+"notification_title" = "Notifications";
+"defualt_app_name" = "This App";
+"notification_body" = "requires notifications to be enabled to receive authentication requests and will not work otherwise. You will only receive notifications for authentication.";
+"notification_confirm_button" = "Continue";
+
+//Pairing
+"enable_camera_description" = "You must enable camera permissions in order to scan.";
+"enable_button" = "Enable";
+"pairing_title" = "Pairing";
+"pairing_description" = "To complete pairing, scan the QR code displayed in your browser, or enter the pairing key manually.";
+"pairing_key_placeholder" = "Pairing Key";
+"allow_notifications_title" = "Allow Notifications";
+"allow_notificaitons_msg" = "Allow notifications to receive authentication requests, otherwise the app won't work.";
+"settings" = "Settings";
+"cancel" = "Cancel";
+"ok" = "OK";
+
+//Users
+"users_table_title" = "Accounts";
+"add_new_user_button" = "New";
+"network_error" = "No network";
+
+//Status
+"verifying" = "Verifying"; //Showing while checking user access request
+"paired" = "Paired"; //On pair success
+"blocked" = "Blocked"; //On pair failure
+"timeout" = "Timed Out"; //Pairing was not completed within timeout window
+"approved" = "Approved"; //MFA approved
+
+//Authorization
+"approve_button" = "Approve";
+"deny_button" = "Deny";
+"notification.confirm"  = "Approve";
+"notification.deny"     = "Deny";
+
+//Biometrics
+"faceid_consent_title" = "FaceID";
+"faceid_consent_msg" = "Confirm to proceed with FaceID authorization.";
+"identify_with_biometrics_msg" = "To complete authentication need to identify.";
+
+//Side Menu
+"send_logs_title" = "Logs Sent";
+"send_logs_msg" = "Logs sent successfully. You can find your support ID on the side menu.";
+"send_logs" = "Send Logs";
+"logs_sent" = "Logs Sent";
