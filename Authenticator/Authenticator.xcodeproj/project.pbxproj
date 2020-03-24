@@ -7,47 +7,22 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		697CC6892407A3E00020C9F4 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 697CC6882407A3E00020C9F4 /* MainViewController.swift */; };
 		697CC68A2407A3E00020C9F4 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 697CC6882407A3E00020C9F4 /* MainViewController.swift */; };
-		697CC694241776BD0020C9F4 /* UsersHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 697CC693241776BD0020C9F4 /* UsersHandler.swift */; };
 		697CC695241776BD0020C9F4 /* UsersHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 697CC693241776BD0020C9F4 /* UsersHandler.swift */; };
-		69AAD82023F2B07100678029 /* UIDevice+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69AAD81F23F2B07100678029 /* UIDevice+Extension.swift */; };
 		69AAD82123F2B07100678029 /* UIDevice+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69AAD81F23F2B07100678029 /* UIDevice+Extension.swift */; };
-		69AAD82323F2B0B700678029 /* AuthenticationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69AAD82223F2B0B700678029 /* AuthenticationViewController.swift */; };
 		69AAD82423F2B0B700678029 /* AuthenticationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69AAD82223F2B0B700678029 /* AuthenticationViewController.swift */; };
-		69AAD83823F2D00600678029 /* SideMenuVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69AAD83723F2D00600678029 /* SideMenuVC.swift */; };
 		69AAD83923F2D00600678029 /* SideMenuVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69AAD83723F2D00600678029 /* SideMenuVC.swift */; };
-		69AAD83B23F2D00D00678029 /* ContainerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69AAD83A23F2D00D00678029 /* ContainerVC.swift */; };
 		69AAD83C23F2D00D00678029 /* ContainerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69AAD83A23F2D00D00678029 /* ContainerVC.swift */; };
-		69AAD85623F54F3400678029 /* UIApplication+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69AAD85523F54F3400678029 /* UIApplication+Extension.swift */; };
 		69AAD85723F54F3400678029 /* UIApplication+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69AAD85523F54F3400678029 /* UIApplication+Extension.swift */; };
-		69AAD85A23F54F4700678029 /* MenuTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 69AAD85823F54F4700678029 /* MenuTableViewCell.xib */; };
 		69AAD85B23F54F4700678029 /* MenuTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 69AAD85823F54F4700678029 /* MenuTableViewCell.xib */; };
-		69AAD85C23F54F4700678029 /* MenuTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69AAD85923F54F4700678029 /* MenuTableViewCell.swift */; };
 		69AAD85D23F54F4700678029 /* MenuTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69AAD85923F54F4700678029 /* MenuTableViewCell.swift */; };
-		69E2C08E23FA87EA00C053B7 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69E2C08923FA87EA00C053B7 /* Constants.swift */; };
 		69E2C08F23FA87EA00C053B7 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69E2C08923FA87EA00C053B7 /* Constants.swift */; };
-		69E2C09023FA87EA00C053B7 /* ActiveUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69E2C08A23FA87EA00C053B7 /* ActiveUser.swift */; };
 		69E2C09123FA87EA00C053B7 /* ActiveUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69E2C08A23FA87EA00C053B7 /* ActiveUser.swift */; };
-		69E2C09223FA87EA00C053B7 /* QRCapture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69E2C08B23FA87EA00C053B7 /* QRCapture.swift */; };
 		69E2C09323FA87EA00C053B7 /* QRCapture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69E2C08B23FA87EA00C053B7 /* QRCapture.swift */; };
-		69E2C09723FA881100C053B7 /* NavBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = 69E2C09423FA881100C053B7 /* NavBar.xib */; };
 		69E2C09823FA881100C053B7 /* NavBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = 69E2C09423FA881100C053B7 /* NavBar.xib */; };
-		69E2C09923FA881100C053B7 /* AlertBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69E2C09523FA881100C053B7 /* AlertBanner.swift */; };
 		69E2C09A23FA881100C053B7 /* AlertBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69E2C09523FA881100C053B7 /* AlertBanner.swift */; };
-		69E2C09B23FA881100C053B7 /* NavBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69E2C09623FA881100C053B7 /* NavBar.swift */; };
 		69E2C09C23FA881100C053B7 /* NavBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69E2C09623FA881100C053B7 /* NavBar.swift */; };
-		69E2C0A323FA893200C053B7 /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69E2C0A223FA893200C053B7 /* Reachability.swift */; };
 		69E2C0A423FA893200C053B7 /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69E2C0A223FA893200C053B7 /* Reachability.swift */; };
-		7B1F918823A0FFC2006D6CF6 /* NotificationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B1F918723A0FFC2006D6CF6 /* NotificationsViewController.swift */; };
-		7B1F918A23A11D45006D6CF6 /* StatusViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B1F918923A11D45006D6CF6 /* StatusViewController.swift */; };
-		7B1F918C23A11D99006D6CF6 /* UIImageView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B1F918B23A11D99006D6CF6 /* UIImageView+Extension.swift */; };
-		7B6DC4DD239FD0F400AFE834 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B6DC4DC239FD0F400AFE834 /* UIColor+Extension.swift */; };
-		7B6DC502239FD52500AFE834 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7B6DC500239FD52500AFE834 /* Localizable.strings */; };
-		7B6DC504239FD5DF00AFE834 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B6DC503239FD5DF00AFE834 /* String+Extension.swift */; };
-		7B87483923A23665002725E1 /* Defaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B87483823A23665002725E1 /* Defaults.swift */; };
-		7B87484823A270FA002725E1 /* PingOne.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B87484623A270F4002725E1 /* PingOne.framework */; };
-		7B87484923A270FA002725E1 /* PingOne.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 7B87484623A270F4002725E1 /* PingOne.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		7BB43B3423A6332B004C7317 /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD8DDAD2302AE9F00AE34FB /* UIView+Extension.swift */; };
 		7BB43B3523A6332B004C7317 /* Defaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B87483823A23665002725E1 /* Defaults.swift */; };
 		7BB43B3623A6332B004C7317 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B6DC503239FD5DF00AFE834 /* String+Extension.swift */; };
@@ -65,32 +40,11 @@
 		7BB43B5223A6333A004C7317 /* PingOne.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B87483023A13770002725E1 /* PingOne.xcframework */; };
 		7BB43B5323A6333A004C7317 /* PingOne.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 7B87483023A13770002725E1 /* PingOne.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		7BB43B5523A63C1D004C7317 /* UsersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BB43B5423A63C1D004C7317 /* UsersViewController.swift */; };
-		7BB43B5723A63FEF004C7317 /* UserTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BB43B5623A63FEF004C7317 /* UserTableViewCell.swift */; };
 		7BB43B5823A63FEF004C7317 /* UserTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BB43B5623A63FEF004C7317 /* UserTableViewCell.swift */; };
-		7BB43B5923A65D1C004C7317 /* UsersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BB43B5423A63C1D004C7317 /* UsersViewController.swift */; };
-		7BB43B5B23A78953004C7317 /* DynamicTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BB43B5A23A78953004C7317 /* DynamicTableView.swift */; };
 		7BB43B5C23A78953004C7317 /* DynamicTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BB43B5A23A78953004C7317 /* DynamicTableView.swift */; };
-		7BC1D35D232A748A00B9884C /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BC1D35C232A748A00B9884C /* NavigationController.swift */; };
-		7BD8DD9B2302936800AE34FB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD8DD9A2302936800AE34FB /* AppDelegate.swift */; };
-		7BD8DD9D2302936800AE34FB /* PairViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD8DD9C2302936800AE34FB /* PairViewController.swift */; };
-		7BD8DDA02302936800AE34FB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7BD8DD9E2302936800AE34FB /* Main.storyboard */; };
-		7BD8DDA22302936B00AE34FB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7BD8DDA12302936B00AE34FB /* Assets.xcassets */; };
-		7BD8DDA52302936B00AE34FB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7BD8DDA32302936B00AE34FB /* LaunchScreen.storyboard */; };
-		7BD8DDAE2302AE9F00AE34FB /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD8DDAD2302AE9F00AE34FB /* UIView+Extension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		7B87483423A13775002725E1 /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				7B87484923A270FA002725E1 /* PingOne.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		7BB43B4A23A6332B004C7317 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -136,7 +90,6 @@
 		7BB43B5623A63FEF004C7317 /* UserTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTableViewCell.swift; sourceTree = "<group>"; };
 		7BB43B5A23A78953004C7317 /* DynamicTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicTableView.swift; sourceTree = "<group>"; };
 		7BC1D35C232A748A00B9884C /* NavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
-		7BD8DD972302936800AE34FB /* Authenticator-Debug.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Authenticator-Debug.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7BD8DD9A2302936800AE34FB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7BD8DD9C2302936800AE34FB /* PairViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PairViewController.swift; sourceTree = "<group>"; };
 		7BD8DD9F2302936800AE34FB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -152,14 +105,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				7BB43B5223A6333A004C7317 /* PingOne.xcframework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		7BD8DD942302936800AE34FB /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				7B87484823A270FA002725E1 /* PingOne.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -237,7 +182,6 @@
 		7BD8DD982302936800AE34FB /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				7BD8DD972302936800AE34FB /* Authenticator-Debug.app */,
 				7BB43B4F23A6332B004C7317 /* Authenticator.app */,
 			);
 			name = Products;
@@ -297,24 +241,6 @@
 			productReference = 7BB43B4F23A6332B004C7317 /* Authenticator.app */;
 			productType = "com.apple.product-type.application";
 		};
-		7BD8DD962302936800AE34FB /* Authenticator-Debug */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 7BD8DDA92302936B00AE34FB /* Build configuration list for PBXNativeTarget "Authenticator-Debug" */;
-			buildPhases = (
-				7BD8DD932302936800AE34FB /* Sources */,
-				7BD8DD942302936800AE34FB /* Frameworks */,
-				7BD8DD952302936800AE34FB /* Resources */,
-				7B87483423A13775002725E1 /* Embed Frameworks */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = "Authenticator-Debug";
-			productName = Authenticator;
-			productReference = 7BD8DD972302936800AE34FB /* Authenticator-Debug.app */;
-			productType = "com.apple.product-type.application";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -324,11 +250,6 @@
 				LastSwiftUpdateCheck = 1020;
 				LastUpgradeCheck = 1020;
 				ORGANIZATIONNAME = "Ping Identity";
-				TargetAttributes = {
-					7BD8DD962302936800AE34FB = {
-						CreatedOnToolsVersion = 10.2.1;
-					};
-				};
 			};
 			buildConfigurationList = 7BD8DD922302936800AE34FB /* Build configuration list for PBXProject "Authenticator" */;
 			compatibilityVersion = "Xcode 9.3";
@@ -343,7 +264,6 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				7BD8DD962302936800AE34FB /* Authenticator-Debug */,
 				7BB43B3223A6332B004C7317 /* Authenticator */,
 			);
 		};
@@ -360,19 +280,6 @@
 				7BB43B4823A6332B004C7317 /* Assets.xcassets in Resources */,
 				7BB43B4923A6332B004C7317 /* Main.storyboard in Resources */,
 				69E2C09823FA881100C053B7 /* NavBar.xib in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		7BD8DD952302936800AE34FB /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				69AAD85A23F54F4700678029 /* MenuTableViewCell.xib in Resources */,
-				7B6DC502239FD52500AFE834 /* Localizable.strings in Resources */,
-				7BD8DDA52302936B00AE34FB /* LaunchScreen.storyboard in Resources */,
-				7BD8DDA22302936B00AE34FB /* Assets.xcassets in Resources */,
-				7BD8DDA02302936800AE34FB /* Main.storyboard in Resources */,
-				69E2C09723FA881100C053B7 /* NavBar.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -410,40 +317,6 @@
 				697CC68A2407A3E00020C9F4 /* MainViewController.swift in Sources */,
 				69E2C0A423FA893200C053B7 /* Reachability.swift in Sources */,
 				7BB43B4123A6332B004C7317 /* UIColor+Extension.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		7BD8DD932302936800AE34FB /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				69AAD83B23F2D00D00678029 /* ContainerVC.swift in Sources */,
-				7BD8DDAE2302AE9F00AE34FB /* UIView+Extension.swift in Sources */,
-				69AAD85C23F54F4700678029 /* MenuTableViewCell.swift in Sources */,
-				7B87483923A23665002725E1 /* Defaults.swift in Sources */,
-				69AAD83823F2D00600678029 /* SideMenuVC.swift in Sources */,
-				69E2C09B23FA881100C053B7 /* NavBar.swift in Sources */,
-				7B6DC504239FD5DF00AFE834 /* String+Extension.swift in Sources */,
-				697CC694241776BD0020C9F4 /* UsersHandler.swift in Sources */,
-				69E2C08E23FA87EA00C053B7 /* Constants.swift in Sources */,
-				69E2C09023FA87EA00C053B7 /* ActiveUser.swift in Sources */,
-				7BB43B5723A63FEF004C7317 /* UserTableViewCell.swift in Sources */,
-				7BB43B5923A65D1C004C7317 /* UsersViewController.swift in Sources */,
-				69AAD85623F54F3400678029 /* UIApplication+Extension.swift in Sources */,
-				7BB43B5B23A78953004C7317 /* DynamicTableView.swift in Sources */,
-				7BC1D35D232A748A00B9884C /* NavigationController.swift in Sources */,
-				7B1F918823A0FFC2006D6CF6 /* NotificationsViewController.swift in Sources */,
-				7B1F918C23A11D99006D6CF6 /* UIImageView+Extension.swift in Sources */,
-				7BD8DD9D2302936800AE34FB /* PairViewController.swift in Sources */,
-				69AAD82023F2B07100678029 /* UIDevice+Extension.swift in Sources */,
-				69E2C09223FA87EA00C053B7 /* QRCapture.swift in Sources */,
-				7BD8DD9B2302936800AE34FB /* AppDelegate.swift in Sources */,
-				69AAD82323F2B0B700678029 /* AuthenticationViewController.swift in Sources */,
-				69E2C09923FA881100C053B7 /* AlertBanner.swift in Sources */,
-				7B1F918A23A11D45006D6CF6 /* StatusViewController.swift in Sources */,
-				697CC6892407A3E00020C9F4 /* MainViewController.swift in Sources */,
-				69E2C0A323FA893200C053B7 /* Reachability.swift in Sources */,
-				7B6DC4DD239FD0F400AFE834 /* UIColor+Extension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -653,59 +526,6 @@
 			};
 			name = Release;
 		};
-		7BD8DDAA2302936B00AE34FB /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = Authenticator/Authenticator.entitlements;
-				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = YZYUGL7S48;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Authenticator",
-				);
-				INFOPLIST_FILE = Authenticator/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
-				MARKETING_VERSION = 1.2.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.pingIdentity.Authenticator;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "P14C Authenticator InHouse Development";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
-			};
-			name = Debug;
-		};
-		7BD8DDAB2302936B00AE34FB /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = Authenticator/Authenticator.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = YZYUGL7S48;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Authenticator",
-				);
-				INFOPLIST_FILE = Authenticator/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
-				MARKETING_VERSION = 1.2.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.pingIdentity.Authenticator;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "P14C Authenticator InHouse Distribution";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -723,15 +543,6 @@
 			buildConfigurations = (
 				7BD8DDA72302936B00AE34FB /* Debug */,
 				7BD8DDA82302936B00AE34FB /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		7BD8DDA92302936B00AE34FB /* Build configuration list for PBXNativeTarget "Authenticator-Debug" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				7BD8DDAA2302936B00AE34FB /* Debug */,
-				7BD8DDAB2302936B00AE34FB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
