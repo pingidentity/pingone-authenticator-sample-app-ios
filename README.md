@@ -24,7 +24,7 @@ To set up your application for  working with push messages in iOS refer to [Ping
 
 ## Installation
 
-1. Download the latest code [here].
+1. Clone this repository.
 2. Go to the **Target General** setting and update the **Display Name** and **Bundle Identifier** with your app's values.
 3. To update the UI, replace the following images in the `Assets.xcassets` folder:
     - Splash screen image: `launch_image`
@@ -38,7 +38,6 @@ To set up your application for  working with push messages in iOS refer to [Ping
 ##### Note: For further understanding the code implementation of this app, refer to [Setup a mobile app] using the PingOne SDK sample code.
 
 
-[here]: <https://github.com/pingidentity/pingone-customers-mobile-sdk-ios/tree/v1.2.0>
 [Setup a mobile app]: <https://github.com/pingidentity/pingone-customers-mobile-sdk-ios>
 [App Store Review Guidelines]:<https://developer.apple.com/app-store/review/guidelines/>
 [PingOne mobile SDK iOS readMe]:<https://github.com/pingidentity/pingone-customers-mobile-sdk-ios/blob/master/README.md>
