@@ -2,8 +2,7 @@
 //  ActiveUser.swift
 //  Authenticator
 //
-//  Created by Amit Nadir on 11/02/2020.
-//  Copyright © 2020 Ping Identity. All rights reserved.
+//  Copyright © 2019 Ping Identity. All rights reserved.
 //
 
 import UIKit
@@ -12,7 +11,7 @@ import PingOne
 
 struct User: Codable {
     let id: String
-    let name: Name
+    var name: Name
 
     init(id: String, name: Name){
         self.id = id
@@ -21,11 +20,11 @@ struct User: Codable {
 }
 
 struct Name: Codable {
-    let given: String?
-    let family: String?
+    var given: String?
+    var family: String?
 
     init(given: String?, family: String?){
-        self.given = given ?? "User"
+        self.given = given ?? ""
         self.family = family ?? ""
     }
 }

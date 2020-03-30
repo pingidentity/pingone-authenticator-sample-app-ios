@@ -2,7 +2,6 @@
 //  QRCamera.swift
 //  Authenticator
 //
-//  Created by Segev Sherry on 8/19/19.
 //  Copyright © 2019 Ping Identity. All rights reserved.
 //
 
@@ -33,7 +32,7 @@ class QRCapture: NSObject, AVCaptureMetadataOutputObjectsDelegate {
         }
     }
     
-    func addPreviewLayerTo(_ cameraView: UIView){
+    func addPreviewLayerTo(_ cameraView: UIView, completion:@escaping (_ isDone: Bool) -> Void) {
         captureSession = AVCaptureSession()
         
         guard let captureDevice = AVCaptureDevice.default(for: .video) else {
@@ -72,6 +71,7 @@ class QRCapture: NSObject, AVCaptureMetadataOutputObjectsDelegate {
             self.previewLayer.videoGravity = .resizeAspectFill
             cameraView.layer.addSublayer(self.previewLayer)
             self.captureSession.startRunning()
+            completion(true)
         }
     }
     
@@ -87,25 +87,10 @@ class QRCapture: NSObject, AVCaptureMetadataOutputObjectsDelegate {
             AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
             found(code: stringValue)
         }
-        
-        //dismiss(animated: true)
     }
     
     func found(code: String) {
-        // Send code to delegate
         delegate?.found(code: code)
     }
-    
-    /*convenience init() {
-        self.init(frame: CGRect.zero)
-    }
-    
-    required init(coder aDecoder: NSCoder) {
-        fatalError("This class does not support NSCoding")
-    }
-    
-    func addBehavior() {
-        print("Add all the behavior here")
-    }*/
 
 }

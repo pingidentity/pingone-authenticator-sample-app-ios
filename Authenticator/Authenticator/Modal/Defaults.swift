@@ -1,8 +1,7 @@
 //
 //  Defaults.swift
-//  SampleApp
+//  Authenticator
 //
-//  Created by Segev Sherry on 3/26/19.
 //  Copyright © 2019 Ping Identity. All rights reserved.
 //
 
@@ -30,18 +29,36 @@ class Defaults{
         defaults().set(isPaired, forKey: DefaultsKeys.isPairedKey)
     }
     
-
-    /*class func setIssuer(_ issuer: String) {
-        defaults().set(issuer, forKey: DefaultsKey.Issuer)
+    class func addedUserReset() {
+        defaults().set(false, forKey: DefaultsKeys.isUserAdded)
     }
-    class func getIssuer() -> String? {
-        if let issuer = defaults().string(forKey: DefaultsKey.Issuer){
-            return issuer
-        }
-        return nil
-    }*/
-
     
+    class func addedNewUser() {
+        defaults().set(true, forKey: DefaultsKeys.isUserAdded)
+    }
+    
+    class func isNewUserAdded() -> Bool {
+        return defaults().bool(forKey: DefaultsKeys.isUserAdded)
+    }
+    
+    class func setSupportID(idStr: String) {
+        defaults().set(idStr, forKey: DefaultsKeys.supportID)
+    }
+    
+    class func getSupportID() -> String {
+        return defaults().value(forKey: DefaultsKeys.supportID) as? String ?? ""
+    }
+    
+    class func setUserData(id: String, name: String) {
+        var usersDict = getUsersData()
+        usersDict[id] = name
+        defaults().set(usersDict, forKey: DefaultsKeys.usersDefaultKey)
+    }
+    
+    class func getUsersData() -> [String : String] {
+        return defaults().object(forKey: DefaultsKeys.usersDefaultKey) as? [String : String] ?? [:]
+    }
+        
     class func sync() {
         defaults().synchronize()
     }
