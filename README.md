@@ -38,7 +38,7 @@ To set up your application for  working with push messages in iOS refer to [Ping
 ##### Note: For further understanding the code implementation of this app, refer to [Setup a mobile app] using the PingOne SDK sample code.
 
 
-[this]: <https://github.com/pingidentity/pingone-customers-mobile-sdk-ios>
+[this]: <https://github.com/pingidentity/pingone-customers-authenticator-sample-app-ios>
 [PingOne mobile SDK]: <https://github.com/pingidentity/pingone-customers-mobile-sdk-ios>
 [Setup a mobile app]: <https://github.com/pingidentity/pingone-customers-mobile-sdk-ios>
 [App Store Review Guidelines]:<https://developer.apple.com/app-store/review/guidelines/>
