@@ -215,8 +215,8 @@ class PairViewController: MainViewController, UITextFieldDelegate, QRCaptureDele
                 }
                 statusVc.modalPresentationStyle = .overCurrentContext
                 statusVc.modalTransitionStyle = .crossDissolve
-                appDelegate.containerVc!.present(statusVc, animated: true, completion: nil)
-                
+                appDelegate.containerVc!.present(statusVc, animated: true, completion: {
+                 
                 //Start pairing
                 PingOne.pair(withPairingKey) { (error) in
                     if let error = error{
@@ -237,6 +237,8 @@ class PairViewController: MainViewController, UITextFieldDelegate, QRCaptureDele
                         }
                     }
                 }
+                
+                })
             }
         }
     }
