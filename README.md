@@ -20,17 +20,17 @@ This sample application demonstrates an authenticator-only application that uses
 
 The Authenticator sample app requires Xcode 11 and above to compile and run.
 
-To set up your application for  working with push messages in iOS refer to [PingOne mobile SDK iOS readMe].
+To set up your application for  working with push messages in iOS refer to [PingOne mobile SDK].
 
 ## Installation
 
-1. Download the latest code from [this] repo.
+1. Download the latest code from this repo.
 2. Go to the **Target General** setting and update the **Display Name** and **Bundle Identifier** with your app's values.
 3. To update the UI, replace the following images in the `Assets.xcassets` folder:
     - Splash screen image: `launch_image`
     - Banner logo in navigation bar: `logo_navbar`
     - App Icon: `AppIcon`
-    ##### Note: 
+    ##### Note:
     It is mandatory to replace these images before submitting the app to AppStore, in order to create a unique app complying with Apple's restrictions. For more information, refer to [App Store Review Guidelines].
 
 4. If needed, update the `Localizable.strings` file, to customize any string in the app.
@@ -38,8 +38,7 @@ To set up your application for  working with push messages in iOS refer to [Ping
 ##### Note: For further understanding the code implementation of this app, refer to [Setup a mobile app] using the PingOne SDK sample code.
 
 
-[this]: <https://github.com/pingidentity/pingone-customers-mobile-sdk-ios>
 [PingOne mobile SDK]: <https://github.com/pingidentity/pingone-customers-mobile-sdk-ios>
 [Setup a mobile app]: <https://github.com/pingidentity/pingone-customers-mobile-sdk-ios>
 [App Store Review Guidelines]:<https://developer.apple.com/app-store/review/guidelines/>
-[PingOne mobile SDK iOS readMe]:<https://github.com/pingidentity/pingone-customers-mobile-sdk-ios/blob/master/README.md>
+[PingOne mobile SDK]:<https://github.com/pingidentity/pingone-customers-mobile-sdk-ios/blob/master/README.md>
