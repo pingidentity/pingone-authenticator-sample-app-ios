@@ -98,7 +98,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                 }
             }
             else if let notificationObject = notificationObject{ //User pressed the actual banner, instead of an action.
-                self.displayNotificationViewAlert(notificationObject)
+                if let userInfo = response.notification.request.content.userInfo as? [String : Any] {
+                    let title = self.getNotificationTextFrom(userInfo).title
+                    let message = self.getNotificationTextFrom(userInfo).body
+                    self.displayNotificationViewAlert(notificationObject, title: title, message: message)
+                }
             }
             completionHandler()
         }
@@ -119,8 +123,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
             else if let notificationObject = notificationObject{
                 switch(notificationObject.notificationType){
                 case .authentication:
-                    self.displayNotificationViewAlert(notificationObject)
-                    completionHandler(UIBackgroundFetchResult.newData)
+                    
+                    if let userInfo = userInfo as? [String : Any] {
+                        let title = self.getNotificationTextFrom(userInfo).title
+                        let message = self.getNotificationTextFrom(userInfo).body
+                        self.displayNotificationViewAlert(notificationObject, title: title, message: message)
+                        completionHandler(UIBackgroundFetchResult.newData)
+                    }
 
                 default:
                     print("Error: \(String(describing: error))")
@@ -133,18 +142,32 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         }
     }
     
-    func displayNotificationViewAlert(_ notificationObject: NotificationObject){
+    func displayNotificationViewAlert(_ notificationObject: NotificationObject, title: String?, message: String?){
         if self.notificationObject == nil {
             self.notificationObject = notificationObject
 
             DispatchQueue.main.async {
                 if let authController = UIStoryboard(name: DefaultsKeys.storyboardKey, bundle: nil).instantiateViewController(withIdentifier: ViewControllerKeys.AuthVcID) as? AuthenticationViewController, let navVc = self.navigationVc {
                     authController.notificationObject = notificationObject
+                    authController.pushTitle = title
+                    authController.pushMessage = message
                     authController.modalPresentationStyle = .overCurrentContext
                     navVc.topViewController?.present(authController, animated: true, completion: nil)
                 }
             }
         }
+    }
+    
+    func getNotificationTextFrom(_ userInfo: [String: Any]) -> (title: String, body: String){
+        
+        if let aps = userInfo[Push.aps] as? [String:Any] {
+            if let alert = aps[Push.alert] as? [String:String] {
+                if let title = alert[Push.title], let body = alert[Push.body] {
+                     return (title,body)
+                }
+            }
+        }
+        return ("","")
     }
     
     func applicationWillResignActive(_ application: UIApplication) {

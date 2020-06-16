@@ -32,7 +32,7 @@ class QRCapture: NSObject, AVCaptureMetadataOutputObjectsDelegate {
         }
     }
     
-    func addPreviewLayerTo(_ cameraView: UIView, completion:@escaping (_ isDone: Bool) -> Void) {
+    func addPreviewLayerTo(_ cameraView: UIView, withDelay: Bool, completion:@escaping (_ isDone: Bool) -> Void) {
         captureSession = AVCaptureSession()
         
         guard let captureDevice = AVCaptureDevice.default(for: .video) else {
@@ -65,7 +65,12 @@ class QRCapture: NSObject, AVCaptureMetadataOutputObjectsDelegate {
             return
         }
         
-        DispatchQueue.main.async {
+        var delay : Double = 0
+        if withDelay {
+            delay = 1.75
+        }
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
             self.previewLayer = AVCaptureVideoPreviewLayer(session: self.captureSession)
             self.previewLayer.frame = cameraView.layer.bounds
             self.previewLayer.videoGravity = .resizeAspectFill

@@ -11,11 +11,17 @@ import PingOne
 
 class AuthenticationViewController: MainViewController {
     
-    @IBOutlet weak var approveDenyStackView: UIStackView!
+    @IBOutlet weak var notificationView: UIView!
+    @IBOutlet weak var notificationTitle: UILabel!
+    @IBOutlet weak var notificationBody: UILabel!
     @IBOutlet weak var approveBtn: UIButton!
     @IBOutlet weak var denyBtn: UIButton!
     
     var notificationObject: NotificationObject?
+    var pushTitle: String?
+    var pushMessage: String?
+    var authAlert: UIAlertController = UIAlertController(title: "", message: "", preferredStyle: .alert)
+    
     private var isBiomertics = true
     private let context = LAContext()
     private var timer: Timer!
@@ -63,10 +69,8 @@ class AuthenticationViewController: MainViewController {
             navBar.sideMenuBtn.isHidden = true
             self.view.addSubview(navBar)
         }
-        approveDenyStackView.isHidden = true
-        approveBtn.setTitle("approve_button".localized, for: .normal)
-        denyBtn.setTitle("deny_button".localized, for: .normal)
         
+        setupNotificationView()
         startTimeoutCount()
         authenticateStart()
     }
@@ -76,6 +80,13 @@ class AuthenticationViewController: MainViewController {
         
         self.timer.invalidate()
         self.context.invalidate()
+    }
+    
+    func setupNotificationView(){
+        approveBtn.setTitle("approve_button".localized, for: .normal)
+        denyBtn.setTitle("deny_button".localized, for: .normal)
+        notificationTitle.text = pushTitle ?? ""
+        notificationBody.text = pushMessage ?? ""
     }
     
     //MARK: Authentication methods
@@ -113,7 +124,11 @@ class AuthenticationViewController: MainViewController {
     }
     
     func denyProcess(){
-        if !timer.isValid { return }
+        if !timer.isValid {
+            self.authTimeout()
+            return
+        }
+        
         resetAppNotification()
         guard let notificationObject = notificationObject else {
             self.stopLoadingAnimation()
@@ -134,6 +149,11 @@ class AuthenticationViewController: MainViewController {
         
         self.timer = Timer.scheduledTimer(withTimeInterval: duartion, repeats: true) { timer in
             timer.invalidate()
+
+            if (self.authAlert.presentingViewController != nil) {
+                self.authAlert.dismiss(animated: true, completion: nil)
+            }
+            
             self.authTimeout()
         }
     }
@@ -179,24 +199,25 @@ class AuthenticationViewController: MainViewController {
     //MARK: Biometrics logic
     
     func authenticateStart() {
+        notificationView.isHidden = true
+        
         if biometricType == BiometricType.faceID {
-            let ac = UIAlertController(title: "faceid_consent_title".localized, message: "faceid_consent_msg".localized, preferredStyle: .alert)
-            let okAction = UIAlertAction(title: "ok".localized, style: .default, handler: { (action) in
-                self.startBiometricsAuth(policy: .deviceOwnerAuthentication)
-            })
-            ac.addAction(okAction)
-            
-            self.present(ac, animated: true)
+            showAlert(title: pushTitle ?? "faceid_consent_title".localized, message: pushMessage ?? "faceid_consent_msg".localized)
         } else {
             self.startBiometricsAuth(policy: .deviceOwnerAuthentication)
         }
     }
         
     func startBiometricsAuth(policy: LAPolicy) {
+        
+        if !self.timer.isValid {
+            self.authTimeout()
+        }
+        
         var error: NSError?
-
+        
         if context.canEvaluatePolicy(policy, error: &error) {
-            let reason = "identify_with_biometrics_msg".localized
+            let reason = pushMessage ?? "identify_with_biometrics_msg".localized
             
             context.evaluatePolicy(policy, localizedReason: reason) {
                 [weak self] success, authenticationError in
@@ -213,8 +234,7 @@ class AuthenticationViewController: MainViewController {
                                 self?.startBiometricsAuth(policy: .deviceOwnerAuthentication)
                             }
                             else if errorCode == kLAErrorPasscodeNotSet {
-                                self?.approveDenyStackView.isHidden = false
-                                self?.isBiomertics = false
+                                self?.biometricFallback()
                             }
                             else {
                                 self?.denyProcess()
@@ -239,10 +259,37 @@ class AuthenticationViewController: MainViewController {
             }
             
         } else {
-            //Biometrics not registered, Approve or Deny with buttons on screen
-            approveDenyStackView.isHidden = false
-            isBiomertics = false
+            //Biometrics not registered, Approve or Deny with UI on screen
+            biometricFallback()
         }
+    }
+    
+    func biometricFallback(){
+        notificationView.isHidden = false
+        isBiomertics = false
+    }
+    
+    func showAlert(title: String?, message: String?) {
+        
+        DispatchQueue.main.async {
+            self.authAlert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+                       
+            let approveAction = UIAlertAction(title: "approve_button".localized, style: UIAlertAction.Style.default) {
+               UIAlertAction in
+                self.startBiometricsAuth(policy: .deviceOwnerAuthentication)
+            }
+            let denyAction = UIAlertAction(title: "deny_button".localized, style: UIAlertAction.Style.default) {
+               UIAlertAction in
+                self.startLoadingAnimation()
+                self.denyProcess()
+            }
+            
+            self.authAlert.addAction(denyAction)
+            self.authAlert.addAction(approveAction)
+            
+            self.present(self.authAlert, animated: true, completion: nil)
+        }
+        
     }
 }
 
