@@ -50,6 +50,9 @@ class PairViewController: MainViewController, UITextFieldDelegate, QRCaptureDele
         if Defaults.isPaired(){
             cancelBtn.isHidden = false
         }
+        if  self.presentedViewController?.isKind(of: StatusViewController.self) ?? false{
+            return
+        }
         self.capture.start()
     }
     
@@ -98,7 +101,7 @@ class PairViewController: MainViewController, UITextFieldDelegate, QRCaptureDele
     }
     
     func startCameraPreview(){
-        self.capture.addPreviewLayerTo(self.cameraView) { (isDone) in
+        self.capture.addPreviewLayerTo(self.cameraView, withDelay: false) { (isDone) in
             if isDone {
                 self.capture.start()
                 UIView.animate(withDuration: 0.25) {
@@ -106,6 +109,18 @@ class PairViewController: MainViewController, UITextFieldDelegate, QRCaptureDele
                 }
             }
         }
+    }
+    
+    func didFinishCapture(){
+        self.capture.addPreviewLayerTo(self.cameraView, withDelay: true) { (isDone) in
+            if isDone {
+                self.capture.start()
+                UIView.animate(withDuration: 0.25) {
+                    self.cameraView.alpha = 1
+                }
+            }
+        }
+
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -221,12 +236,12 @@ class PairViewController: MainViewController, UITextFieldDelegate, QRCaptureDele
                 PingOne.pair(withPairingKey) { (error) in
                     if let error = error{
                         print(error.localizedDescription)
-                        self.startCameraPreview()
                         
                         DispatchQueue.main.async{
                             statusVc.authStatus = .failure
                             statusVc.message = error.localizedDescription
                             statusVc.failure()
+                            self.didFinishCapture()
                         }
                     }
                     else{
@@ -299,6 +314,11 @@ class PairViewController: MainViewController, UITextFieldDelegate, QRCaptureDele
     //MARK: QRCameraDelegate
     
     func found(code: String) {
+        if self.presentedViewController?.isKind(of: StatusViewController.self) ?? false {
+            self.startCameraPreview()
+            return
+        }
+        
         print("found code: \(code)")
         startPairing(code)
     }

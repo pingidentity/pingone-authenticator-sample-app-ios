@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES" initialViewController="AN3-FK-t4d">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES" initialViewController="AN3-FK-t4d">
     <device id="retina5_9" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -393,67 +393,100 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="sE6-sb-oE3">
-                                <rect key="frame" x="28" y="354" width="319" height="144"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qrp-mQ-5ce">
+                                <rect key="frame" x="0.0" y="44" width="375" height="734"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="K5u-wl-U2z">
-                                        <rect key="frame" x="0.0" y="0.0" width="319" height="64"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                        <state key="normal" title="Approve">
-                                            <color key="titleColor" red="0.2901960784" green="0.72941176470000002" blue="0.47058823529999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        </state>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                                <color key="value" red="0.2901960784" green="0.72941176470000002" blue="0.47058823529999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
-                                                <real key="value" value="1"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                <real key="value" value="3"/>
-                                            </userDefinedRuntimeAttribute>
-                                        </userDefinedRuntimeAttributes>
-                                        <connections>
-                                            <action selector="approve:" destination="vnH-3N-tOj" eventType="touchUpInside" id="lw3-b1-dpP"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="KYi-pW-cHK">
-                                        <rect key="frame" x="0.0" y="80" width="319" height="64"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                        <state key="normal" title="Deny">
-                                            <color key="titleColor" red="0.63921568630000003" green="0.074509803920000006" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        </state>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                                <color key="value" red="0.63921568630000003" green="0.074509803920000006" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
-                                                <real key="value" value="1"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                <real key="value" value="3"/>
-                                            </userDefinedRuntimeAttribute>
-                                        </userDefinedRuntimeAttributes>
-                                        <connections>
-                                            <action selector="deny:" destination="vnH-3N-tOj" eventType="touchUpInside" id="for-WZ-7MB"/>
-                                        </connections>
-                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" text="New PingOne Authentication" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="JtC-8J-AGf">
+                                        <rect key="frame" x="40" y="238" width="295" height="21.666666666666686"/>
+                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
+                                        <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" text="Notification body content would appear in here as such." textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="iaI-mn-UC9">
+                                        <rect key="frame" x="40" y="275.66666666666669" width="295" height="31.333333333333314"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                        <color key="textColor" red="0.23921568630000001" green="0.27058823529999998" blue="0.30196078430000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="sE6-sb-oE3">
+                                        <rect key="frame" x="40" y="342" width="295" height="144"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="K5u-wl-U2z">
+                                                <rect key="frame" x="0.0" y="0.0" width="338" height="64"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                                <state key="normal" title="Approve">
+                                                    <color key="titleColor" red="0.2901960784" green="0.72941176470000002" blue="0.47058823529999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                </state>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                        <color key="value" red="0.2901960784" green="0.72941176470000002" blue="0.47058823529999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                        <real key="value" value="1"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                        <real key="value" value="3"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="approve:" destination="vnH-3N-tOj" eventType="touchUpInside" id="lw3-b1-dpP"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="KYi-pW-cHK">
+                                                <rect key="frame" x="0.0" y="80" width="338" height="64"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                                <state key="normal" title="Deny">
+                                                    <color key="titleColor" red="0.63921568630000003" green="0.074509803920000006" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                </state>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                        <color key="value" red="0.63921568630000003" green="0.074509803920000006" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                        <real key="value" value="1"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                        <real key="value" value="3"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="deny:" destination="vnH-3N-tOj" eventType="touchUpInside" id="for-WZ-7MB"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
                                 </subviews>
-                            </stackView>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstItem="iaI-mn-UC9" firstAttribute="top" secondItem="JtC-8J-AGf" secondAttribute="bottom" constant="16" id="79H-Hr-6Xz"/>
+                                    <constraint firstItem="JtC-8J-AGf" firstAttribute="leading" secondItem="sE6-sb-oE3" secondAttribute="leading" id="8M6-9p-Gjq"/>
+                                    <constraint firstItem="JtC-8J-AGf" firstAttribute="trailing" secondItem="sE6-sb-oE3" secondAttribute="trailing" id="9S4-nr-1Mp"/>
+                                    <constraint firstItem="iaI-mn-UC9" firstAttribute="leading" secondItem="sE6-sb-oE3" secondAttribute="leading" id="NwM-tr-pn7"/>
+                                    <constraint firstAttribute="trailing" secondItem="sE6-sb-oE3" secondAttribute="trailing" constant="40" id="UyR-k7-mZz"/>
+                                    <constraint firstItem="sE6-sb-oE3" firstAttribute="leading" secondItem="qrp-mQ-5ce" secondAttribute="leading" constant="40" id="dHN-4h-TUl"/>
+                                    <constraint firstItem="sE6-sb-oE3" firstAttribute="centerY" secondItem="qrp-mQ-5ce" secondAttribute="centerY" constant="47" id="e8H-ca-vqd"/>
+                                    <constraint firstItem="JtC-8J-AGf" firstAttribute="centerX" secondItem="qrp-mQ-5ce" secondAttribute="centerX" id="iiU-RX-z4H"/>
+                                    <constraint firstItem="sE6-sb-oE3" firstAttribute="top" secondItem="iaI-mn-UC9" secondAttribute="bottom" constant="35" id="jNJ-ZT-3UX"/>
+                                    <constraint firstItem="iaI-mn-UC9" firstAttribute="trailing" secondItem="sE6-sb-oE3" secondAttribute="trailing" id="m2e-o2-wWz"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="sE6-sb-oE3" secondAttribute="trailing" constant="28" id="3mu-e4-FeA"/>
-                            <constraint firstItem="sE6-sb-oE3" firstAttribute="leading" secondItem="dKb-xc-rGT" secondAttribute="leading" constant="28" id="7LX-VJ-sAY"/>
-                            <constraint firstItem="sE6-sb-oE3" firstAttribute="centerY" secondItem="dKb-xc-rGT" secondAttribute="centerY" constant="20" id="9zY-eK-3Vq"/>
+                            <constraint firstItem="qrp-mQ-5ce" firstAttribute="top" secondItem="giE-wN-3fL" secondAttribute="bottom" id="6D1-44-bB0"/>
+                            <constraint firstItem="VOS-GS-6rj" firstAttribute="top" secondItem="qrp-mQ-5ce" secondAttribute="bottom" id="Ood-Ut-wFk"/>
+                            <constraint firstAttribute="trailing" secondItem="qrp-mQ-5ce" secondAttribute="trailing" id="iyO-av-w7T"/>
+                            <constraint firstItem="qrp-mQ-5ce" firstAttribute="leading" secondItem="dKb-xc-rGT" secondAttribute="leading" id="wQ8-QZ-dZy"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="approveBtn" destination="K5u-wl-U2z" id="8z2-nD-yvW"/>
-                        <outlet property="approveDenyStackView" destination="sE6-sb-oE3" id="66s-uk-9AS"/>
-                        <outlet property="denyBtn" destination="KYi-pW-cHK" id="NPH-0b-hB4"/>
+                        <outlet property="approveBtn" destination="K5u-wl-U2z" id="uM1-Ah-bzt"/>
+                        <outlet property="denyBtn" destination="KYi-pW-cHK" id="A2S-E6-LO2"/>
+                        <outlet property="notificationBody" destination="iaI-mn-UC9" id="iPx-WV-6bs"/>
+                        <outlet property="notificationTitle" destination="JtC-8J-AGf" id="Nwe-kw-dlr"/>
+                        <outlet property="notificationView" destination="qrp-mQ-5ce" id="Pn9-VA-JIA"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BYw-KH-spc" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

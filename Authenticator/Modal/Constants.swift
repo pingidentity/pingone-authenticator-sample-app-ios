@@ -40,3 +40,9 @@ struct NotificationKeys {
     static let sideMenuReload                               = "sideMenuReload"
 }
 
+struct Push {
+    static let aps                     = "aps"
+    static let alert                   = "alert"
+    static let title                   = "title-loc-key"
+    static let body                    = "loc-key"
+}
