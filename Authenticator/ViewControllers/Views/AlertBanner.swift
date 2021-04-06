@@ -13,6 +13,33 @@ class AlertBanner{
     enum AlertTag: NSInteger {
         case noPush = 100
         case noConnectivity
+        case passCodeCopied
+    }
+    
+    static func temporary(navBar: NavBar, title: String, animate: Bool, tag: AlertTag) {
+        if navBar.viewWithTag(tag.rawValue) != nil{
+            return
+        }
+        else {
+            switch tag {
+            case .passCodeCopied:
+                let banner = AlertBanner.create(navBar: navBar, title: title, tag: tag)
+                banner.tag = tag.rawValue
+                banner.backgroundColor = .customDarkGrey
+                navBar.insertSubview(banner, belowSubview: navBar.mainView)
+                if animate{
+                   AlertBanner.animateShow(banner, isPersistent: false)
+                }
+                else{
+                    DispatchQueue.main.async{
+                      show(banner)
+                    }
+                }
+            default:
+                return
+            }
+        }
+        
     }
     
     static func persistent(navBar: NavBar, title: String, animate: Bool, tag: AlertTag){
@@ -20,7 +47,7 @@ class AlertBanner{
             return
         }
         else{
-            let banner = AlertBanner.create(navBar: navBar, title: title)
+            let banner = AlertBanner.create(navBar: navBar, title: title, tag: tag)
             banner.tag = tag.rawValue
             banner.backgroundColor = .customDarkGrey
             navBar.insertSubview(banner, belowSubview: navBar.mainView)
@@ -41,8 +68,15 @@ class AlertBanner{
         }
     }
     
-    static private func create(navBar: NavBar, title: String) -> UILabel{
-        let height = UIDevice.isIphoneX ? navBar.frame.size.height * 0.50 : navBar.frame.size.height * 0.80
+    static private func create(navBar: NavBar, title: String, tag: AlertTag) -> UILabel{
+        var height: CGFloat = 0
+        switch tag {
+        case .passCodeCopied:
+            height = 30
+        default:
+            height = UIDevice.isIphoneX ? navBar.frame.size.height * 0.50 : navBar.frame.size.height * 0.80
+        }
+         
         let banner = UILabel.init(frame: CGRect(x: 0, y: navBar.frame.size.height - height, width: UIScreen.main.bounds.size.width, height: height))
         banner.numberOfLines = 2
         banner.text = title

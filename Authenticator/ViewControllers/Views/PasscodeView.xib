@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PasscodeView" customModule="Authenticator" customModuleProvider="target">
+            <connections>
+                <outlet property="contentView" destination="iN0-l3-epB" id="eXE-mk-0mx"/>
+                <outlet property="passcodeNumLbl" destination="Kvo-S2-yp2" id="SCL-90-Wwv"/>
+                <outlet property="passcodeTitleLbl" destination="GZs-W4-Lnx" id="oBj-6d-4MJ"/>
+                <outlet property="verticalProgressView" destination="FN9-Fg-acg" id="yMn-sD-Ou4"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="92"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PASSCODE" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GZs-W4-Lnx">
+                    <rect key="frame" x="107" y="12" width="200" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                    <color key="textColor" red="0.40392156862745099" green="0.43137254901960786" blue="0.45882352941176469" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0 1 2 3 4 5 " textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.69999999999999996" translatesAutoresizingMaskIntoConstraints="NO" id="Kvo-S2-yp2">
+                    <rect key="frame" x="107" y="27" width="200" height="62.5"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="200" id="bcA-FM-T77"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" weight="light" pointSize="52"/>
+                    <color key="textColor" red="0.29411764705882354" green="0.38823529411764707" blue="0.48627450980392156" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2E3-sH-bKt" userLabel="SeperatorView">
+                    <rect key="frame" x="0.0" y="90" width="414" height="1"/>
+                    <color key="backgroundColor" red="0.85882352941176465" green="0.87450980392156863" blue="0.88627450980392153" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="1" id="lsi-aC-z5a"/>
+                    </constraints>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FN9-Fg-acg" customClass="VerticalProgressView" customModule="Authenticator" customModuleProvider="target">
+                    <rect key="frame" x="93" y="46.5" width="6" height="27"/>
+                    <color key="backgroundColor" red="0.52941176470588236" green="0.59215686274509804" blue="0.6588235294117647" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="27" id="ReM-vb-Ovl"/>
+                        <constraint firstAttribute="width" constant="6" id="zJt-60-jn6"/>
+                    </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                            <real key="value" value="1"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                            <color key="value" red="0.76470588235294112" green="0.7803921568627451" blue="0.79607843137254897" alpha="1" colorSpace="calibratedRGB"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                            <real key="value" value="1"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </view>
+            </subviews>
+            <color key="backgroundColor" red="0.95686274509803915" green="0.96862745098039216" blue="0.97647058823529409" alpha="1" colorSpace="calibratedRGB"/>
+            <gestureRecognizers/>
+            <constraints>
+                <constraint firstItem="GZs-W4-Lnx" firstAttribute="trailing" secondItem="Kvo-S2-yp2" secondAttribute="trailing" id="10s-Fq-2bF"/>
+                <constraint firstItem="GZs-W4-Lnx" firstAttribute="leading" secondItem="Kvo-S2-yp2" secondAttribute="leading" id="6Yi-ot-tOF"/>
+                <constraint firstItem="GZs-W4-Lnx" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="12" id="AKa-4s-NG2"/>
+                <constraint firstItem="Kvo-S2-yp2" firstAttribute="leading" secondItem="FN9-Fg-acg" secondAttribute="trailing" constant="8" id="CCA-MS-waT"/>
+                <constraint firstItem="Kvo-S2-yp2" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" constant="12" id="DRD-0X-Abo"/>
+                <constraint firstAttribute="trailing" secondItem="2E3-sH-bKt" secondAttribute="trailing" id="Dfq-CW-aXy"/>
+                <constraint firstItem="Kvo-S2-yp2" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="OQR-gr-J2b"/>
+                <constraint firstItem="FN9-Fg-acg" firstAttribute="centerY" secondItem="Kvo-S2-yp2" secondAttribute="centerY" constant="2" id="QbK-Ne-ar5"/>
+                <constraint firstAttribute="bottom" secondItem="2E3-sH-bKt" secondAttribute="bottom" constant="1" id="XuP-oe-d84"/>
+                <constraint firstItem="Kvo-S2-yp2" firstAttribute="top" secondItem="GZs-W4-Lnx" secondAttribute="bottom" constant="-6" id="jIU-jL-13C"/>
+                <constraint firstItem="2E3-sH-bKt" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="oEq-eV-2Da"/>
+            </constraints>
+            <nil key="simulatedTopBarMetrics"/>
+            <nil key="simulatedBottomBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="141" y="73"/>
+        </view>
+    </objects>
+</document>

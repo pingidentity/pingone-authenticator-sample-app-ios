@@ -233,7 +233,7 @@ class PairViewController: MainViewController, UITextFieldDelegate, QRCaptureDele
                 appDelegate.containerVc!.present(statusVc, animated: true, completion: {
                  
                 //Start pairing
-                PingOne.pair(withPairingKey) { (error) in
+                PingOne.pair(withPairingKey) { (reponse, error) in
                     if let error = error{
                         print(error.localizedDescription)
                         

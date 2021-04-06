@@ -9,7 +9,7 @@ import UIKit
 
 class MainViewController: UIViewController {
 
-    private var spinner = UIActivityIndicatorView(style: .gray)
+    private var spinner = UIActivityIndicatorView()
     private var reachability: Reachability?
     
     var viewOriginY : CGFloat = 0
@@ -18,8 +18,8 @@ class MainViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        initLoadingAnimation()
         setupReachability()
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -53,19 +53,33 @@ class MainViewController: UIViewController {
     
     //MARK: Loading Spinner methods
     
-    func startLoadingAnimation(){
-        spinner.translatesAutoresizingMaskIntoConstraints = false
-        spinner.startAnimating()
-        spinner.isHidden = false
+    func initLoadingAnimation(){
+        if #available(iOS 13.0, *) {
+            self.spinner.style = .medium
+        } else {
+            self.spinner.style = .gray
+        }
         self.view.addSubview(spinner)
-
+        
+        spinner.translatesAutoresizingMaskIntoConstraints = false
         spinner.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         spinner.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        
+        spinner.isHidden = true
+    }
+    
+    func startLoadingAnimation(){
+        DispatchQueue.main.async {
+            self.spinner.isHidden = false
+            self.spinner.startAnimating()
+        }
     }
     
     func stopLoadingAnimation(){
-        spinner.stopAnimating()
-        spinner.isHidden = true
+        DispatchQueue.main.async {
+            self.spinner.isHidden = true
+            self.spinner.stopAnimating()
+        }
     }
     
     // MARK: Handle Keyboard Raise
@@ -102,7 +116,7 @@ class MainViewController: UIViewController {
         }
             
         if view.frame.origin.y != navBarHeight {
-            self.view.frame.origin.y = navBarHeight
+            self.view.frame.origin.y = navBarHeight - 15
         }
         
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {

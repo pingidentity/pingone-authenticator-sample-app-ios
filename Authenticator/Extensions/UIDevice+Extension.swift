@@ -27,5 +27,12 @@ extension UIDevice {
     static var isSimulator: Bool {
         return TARGET_OS_SIMULATOR != 0
     }
+    
+    var hasNotch: Bool {
+        if #available(iOS 11.0, *) {
+           return UIApplication.shared.keyWindow?.safeAreaInsets.bottom ?? 0 > 0
+        }
+        return false
+   }
 }
 

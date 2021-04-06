@@ -41,8 +41,12 @@ struct NotificationKeys {
 }
 
 struct Push {
-    static let aps                     = "aps"
-    static let alert                   = "alert"
-    static let title                   = "title-loc-key"
-    static let body                    = "loc-key"
+    static let aps                                          = "aps"
+    static let alert                                        = "alert"
+    static let title                                        = "title-loc-key"
+    static let body                                         = "loc-key"
+}
+
+struct Alert {
+    static let copied                     = "Copied"
 }

@@ -1,5 +1,15 @@
 # Release Notes
 
+## v1.2.0 - April 6th, 2021
+Features:
+
+- Updated SDK to version 1.4.0.
+- Added one time passcode in users screen.
+
+Compatibility notes:
+
+- Supports Xcode 12 and above.
+
 ## v1.1.0 - June 18th, 2020
 Features:
 
