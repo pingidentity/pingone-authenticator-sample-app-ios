@@ -10,9 +10,11 @@ import PingOne
 
 class UsersViewController: MainViewController, UITableViewDelegate, UITableViewDataSource, UserTableViewCellDelegate {
 
+    @IBOutlet weak var PasscodeView: PasscodeView!
     @IBOutlet weak var usersTableView: DynamicTableView!
     @IBOutlet weak var usersTableTitleLbl: UILabel!
     @IBOutlet weak var addNewUserBtn: UIButton!
+    @IBOutlet weak var passcodeViewTopConstraint: NSLayoutConstraint!
     
     private var activeUser : ActiveUser = ActiveUser()
     private let usersHandler : UsersHandler = UsersHandler()
@@ -28,6 +30,8 @@ class UsersViewController: MainViewController, UITableViewDelegate, UITableViewD
         
         addKeyboardNotifications()
         setupScreen()
+
+        setupPasscode()
         getUsers()
         isGetUsersFired = true
     }
@@ -37,15 +41,26 @@ class UsersViewController: MainViewController, UITableViewDelegate, UITableViewD
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        //Set navigation bar
         if let navigation = self.navigationController as? NavigationController {
             navigation.navBar.sideMenuBtn.isHidden = false
             navigation.navBar.sideMenuBtn.isUserInteractionEnabled = true
             navigation.navigationBar.isHidden = false
             navigation.navBar.isHidden = false
             navigation.navBar.layer.applySketchShadow(color: .lightGray)
+            
+            //Set passcode view
+            if !PasscodeView.isHidden {
+                if UIDevice.current.hasNotch {
+                    passcodeViewTopConstraint.constant = 10
+                }
+                PasscodeView.setNeedsUpdateConstraints()
+                view.layoutSubviews()
+            }
         }
 
         self.keyboardHeightFactor = 0.8
+        
         if !isGetUsersFired {
             self.isGetUsersFired = true
             getUsers()
@@ -68,6 +83,30 @@ class UsersViewController: MainViewController, UITableViewDelegate, UITableViewD
         addNewUserBtn.setTitle("add_new_user_button".localized, for: .normal)
     }
     
+    private func setupPasscode() {
+        PingOne.getOneTimePasscode { [weak self] (passcodeData, error) in
+            guard let self = self else {
+                return
+            }
+            self.handlePasscode(passcodeData, error)
+        }
+    }
+    
+    private func handlePasscode(_ oneTimePasscodeInfo: OneTimePasscodeInfo?, _ error: Error?) {
+        if let _ = error {
+            PasscodeView.isHidden = true
+            return
+        }
+        
+        guard let passcodeData = oneTimePasscodeInfo else {
+            return
+        }
+        
+        PasscodeView.update(passcode: passcodeData)
+        PasscodeView.isHidden = false
+        PasscodeView.delegate = self
+    }
+    
     //MARK: Load Users
     
     func getUsers(){
@@ -76,6 +115,7 @@ class UsersViewController: MainViewController, UITableViewDelegate, UITableViewD
         PingOne.getInfo { (activeUsers, error) in
         
             DispatchQueue.main.async {
+                
                 if let activeUsers = activeUsers{
                 
                     if !self.isGetUsersFired { return }
@@ -101,7 +141,9 @@ class UsersViewController: MainViewController, UITableViewDelegate, UITableViewD
                         }
                         self.stopLoadingAnimation()
                     }
-
+                    
+                    self.setupPasscode()
+                    
                 } else
                     if let error = error{
                         if error.code == ErrorCode.deviceIsNotPaired.rawValue{
@@ -201,6 +243,23 @@ class UsersViewController: MainViewController, UITableViewDelegate, UITableViewD
             self.activeUsersArray = self.usersHandler.getSynchedUsers(users)
             self.usersDictStorage = Defaults.getUsersData()
             self.usersTableView.reloadData()
+        }
+    }
+}
+
+extension UsersViewController: PasscodeViewDelegateProtocol {
+    func didTappedView() {
+        if let navigation = self.navigationController as? NavigationController {
+            AlertBanner.temporary(navBar: navigation.navBar, title: Alert.copied, animate: true, tag: .passCodeCopied)
+        }
+    }
+    
+    func didAskForPasscode() {
+        PingOne.getOneTimePasscode { [weak self] (passcodeData, error) in
+            guard let self = self else {
+                return
+            }
+            self.handlePasscode(passcodeData, error)
         }
     }
 }
