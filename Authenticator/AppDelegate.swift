@@ -104,7 +104,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                     self.displayNotificationViewAlert(notificationObject, title: title, message: message)
                 }
             }
-            completionHandler()
+            DispatchQueue.main.async {
+                completionHandler()
+            }
         }
     }
     
