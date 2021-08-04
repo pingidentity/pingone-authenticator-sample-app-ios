@@ -5,7 +5,7 @@ This sample application demonstrates an authenticator-only application that uses
 ## What’s in the sample app?
 
   - Full native application written in Swift 5.1, compatible for all iOS devices from iOS 10 or above.
-  - Integration with [PingOne mobile SDK] version 1.4.0.
+  - Integration with [PingOne mobile SDK] version 1.6.0.
   - UI customization can be done easily to get your company flavor on the app.
   - All app texts can be easily localized and modified in one file.
 
@@ -16,6 +16,7 @@ This sample application demonstrates an authenticator-only application that uses
   - Authentication flow with push notifications using biometric FaceID and TouchID.
   - Side menu with send logs option to track customer issues with support ID.
   - Get one time passcode for paired user with timer animation.
+  - Device integrity validation for threat protection.
 
 ## Prerequisites
 

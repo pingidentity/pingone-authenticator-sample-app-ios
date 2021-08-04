@@ -8,7 +8,7 @@
 import UIKit
 import PingOne
 
-protocol PasscodeViewDelegateProtocol: class {
+protocol PasscodeViewDelegateProtocol: AnyObject {
     func didAskForPasscode()
     func didTappedView()
 }
