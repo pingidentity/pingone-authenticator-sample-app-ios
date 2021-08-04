@@ -2,13 +2,14 @@
 //  VerticalProgressView.swift
 //  Authenticator
 //
+//  Created by Ilya Nedyuha on 21/12/2020.
 //  Copyright © 2020 Ping Identity. All rights reserved.
 //
 
 import Foundation
 import UIKit
 
-protocol VerticalProgressViewDelegateProtocol: class {
+protocol VerticalProgressViewDelegateProtocol: AnyObject {
     func didFinishAnimation()
     func didAnimationColorChange(to color: UIColor)
 }
@@ -144,3 +145,5 @@ class VerticalProgressView : UIView {
         CATransaction.commit()
     }
 }
+
+ 

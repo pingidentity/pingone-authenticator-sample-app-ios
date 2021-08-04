@@ -55,7 +55,6 @@ class UsersViewController: MainViewController, UITableViewDelegate, UITableViewD
                     passcodeViewTopConstraint.constant = 10
                 }
                 PasscodeView.setNeedsUpdateConstraints()
-                view.layoutSubviews()
             }
         }
 

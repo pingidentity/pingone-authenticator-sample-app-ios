@@ -8,7 +8,7 @@
 import UIKit
 import AVFoundation
 
-protocol QRCaptureDelegate: class {
+protocol QRCaptureDelegate: AnyObject {
 
     func found(code: String)
     func failed(error: String)

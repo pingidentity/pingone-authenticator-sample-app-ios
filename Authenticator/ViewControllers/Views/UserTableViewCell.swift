@@ -7,7 +7,7 @@
 
 import UIKit
 
-protocol UserTableViewCellDelegate: class {
+protocol UserTableViewCellDelegate: AnyObject {
     func userNameUpdateDone()
 }
 
