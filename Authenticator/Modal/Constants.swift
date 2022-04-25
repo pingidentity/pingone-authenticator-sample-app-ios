@@ -12,6 +12,8 @@ struct DefaultsKeys{
     static let notificationPermissionCounter                = "notification_permission_counter"
     static let maxNotificationPersmissionRequests           = 5
     static let minCharactersForPairKey                      = 14
+    static let minCharactersForAuthCode                     = 8
+    static let sideMenuCellHeight                           = 44
     static let supportID                                    = "support_id"
     static let notificationMethodType                       = "user"
     static let sendLogsKey                                  = "sendLogs"
@@ -19,6 +21,7 @@ struct DefaultsKeys{
     static let storyboardKey                                = "Main"
     static let usersDefaultKey                              = "usersDictionary"
     static let userTableViewCellKey                         = "UserTableViewCell"
+    static let userQRAuthTableViewCell                      = "UserQRAuthTableViewCell"
 }
 
 struct ServerErrors {
@@ -30,6 +33,7 @@ struct ViewControllerKeys {
     static let UsersVcID                                    = "UsersVcID"
     static let PairVcID                                     = "PairVcID"
     static let AuthVcID                                     = "AuthVcID"
+    static let AuthCodeVcID                                 = "AuthCodeVcID"
     static let NotificationVcID                             = "NotificationVcID"
 }
 
@@ -38,6 +42,7 @@ struct NotificationKeys {
     static let toggleSideMenuEnd                            = "ToggleSideMenuEnd"
     static let sendLogs                                     = "sendLogs"
     static let sideMenuReload                               = "sideMenuReload"
+    static let scanQRMenuTapped                             = "scanQRMenuTapped"
 }
 
 struct Push {
@@ -48,5 +53,19 @@ struct Push {
 }
 
 struct Alert {
-    static let copied                     = "Copied"
+    static let copied                                       = "Copied"
+}
+
+struct AuthenticateCode {
+    static let userApprovalNotRequired                      = "NOT_REQUIRED"
+    static let userApprovalRequired                         = "REQUIRED"
+    static let statusCompleted                              = "COMPLETED"
+    static let statusDenied                                 = "DENIED"
+    static let statusExpired                                = "EXPIRED"
+    static let statusClaimed                                = "CLAIMED"
+}
+
+struct AssetsName {
+    static let checkmarkOn                                  = "checkmark_on"
+    static let checkmarkOff                                 = "checkmark_off"
 }

@@ -6,7 +6,7 @@
 //
 
 import UIKit
-import PingOne
+import PingOneSDK
 
 class SideMenuVC: MainViewController, UITableViewDelegate, UITableViewDataSource {
     
@@ -22,10 +22,14 @@ class SideMenuVC: MainViewController, UITableViewDelegate, UITableViewDataSource
         super.viewDidLoad()
                 
         setupListeners()
-        setupHeader()
         setupActionsTable()
         setupLowerDetailsLables()
         loadActions()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        setupHeader()
     }
     
     func setupListeners(){
@@ -61,7 +65,7 @@ class SideMenuVC: MainViewController, UITableViewDelegate, UITableViewDataSource
         let navBar: NavBar = UIView.fromNib()
         upperView.frame = navBar.frame
         upperView.backgroundColor = .white
-        upperViewHeightConstraint.constant = navBar.frame.height
+        upperViewHeightConstraint.constant = navBar.frame.height + UIApplication.shared.statusBarFrame.height + CGFloat(DefaultsKeys.sideMenuCellHeight)
         self.view.setNeedsLayout()
     }
     

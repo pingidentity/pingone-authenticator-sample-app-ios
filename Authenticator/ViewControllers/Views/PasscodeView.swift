@@ -6,7 +6,7 @@
 //
 
 import UIKit
-import PingOne
+import PingOneSDK
 
 protocol PasscodeViewDelegateProtocol: AnyObject {
     func didAskForPasscode()
