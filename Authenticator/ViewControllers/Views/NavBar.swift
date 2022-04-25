@@ -11,7 +11,9 @@ class NavBar: UIView {
 
     
     @IBOutlet weak var mainView: UIView!
+    @IBOutlet weak var scanQRBtn: UIButton!
     @IBOutlet weak var sideMenuBtn: UIButton!
+    var navHeight: CGFloat = 0
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -20,10 +22,19 @@ class NavBar: UIView {
     
     func setupView(){
         mainView.backgroundColor = .white
-        let navHeight = UIScreen.main.bounds.size.height * 0.12
         self.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: navHeight)
-        
-        self.layer.applySketchShadow()
+    }
+    
+    func disableNavButtons(){
+        sideMenuBtn.isHidden = true
+        scanQRBtn.isHidden = true
+        sideMenuBtn.isUserInteractionEnabled = false
+    }
+    
+    func enableNavButtons(){
+        sideMenuBtn.isHidden = false
+        scanQRBtn.isHidden = false
+        sideMenuBtn.isUserInteractionEnabled = true
     }
     
     @IBAction func openMenu(_ sender: UIButton) {
@@ -31,4 +42,11 @@ class NavBar: UIView {
             NotificationCenter.default.post(name: NSNotification.Name(NotificationKeys.toggleSideMenuStart), object: nil)
         }
     }
+    
+    @IBAction func scanQR(_ sender: UIButton) {
+        if !scanQRBtn.isHidden {
+            NotificationCenter.default.post(name: NSNotification.Name(NotificationKeys.scanQRMenuTapped), object: nil)
+        }
+    }
+    
 }

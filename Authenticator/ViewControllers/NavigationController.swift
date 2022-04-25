@@ -6,7 +6,7 @@
 //
 
 import UIKit
-import PingOne
+import PingOneSDK
 
 class NavigationController: UINavigationController {
 
@@ -39,7 +39,6 @@ class NavigationController: UINavigationController {
                     vc = story.instantiateViewController(withIdentifier: ViewControllerKeys.NotificationVcID)
                 }
                 else{
-                    self.navBar.layer.applySketchShadow(color: .darkGray)
                     vc = story.instantiateViewController(withIdentifier: ViewControllerKeys.PairVcID)
                 }
             }

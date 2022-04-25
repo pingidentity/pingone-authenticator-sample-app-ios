@@ -1,5 +1,5 @@
 //
-//  usersHandler.swift
+//  UsersHandler.swift
 //  Authenticator
 //
 //  Copyright © 2019 Ping Identity. All rights reserved.

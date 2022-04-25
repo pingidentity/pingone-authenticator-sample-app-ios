@@ -7,7 +7,7 @@
 
 import UIKit
 import LocalAuthentication
-import PingOne
+import PingOneSDK
 
 class AuthenticationViewController: MainViewController {
     
@@ -67,6 +67,7 @@ class AuthenticationViewController: MainViewController {
         if self.navigationController == nil {
             let navBar: NavBar = UIView.fromNib()
             navBar.sideMenuBtn.isHidden = true
+            navBar.scanQRBtn.isHidden = true
             self.view.addSubview(navBar)
         }
         

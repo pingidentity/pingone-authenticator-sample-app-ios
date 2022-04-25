@@ -6,30 +6,21 @@
 //
 
 import UIKit
-import PingOne
+import PingOneSDK
 
 
 struct User: Codable {
     let id: String
     var name: Name
-
-    init(id: String, name: Name){
-        self.id = id
-        self.name = name
-    }
+    var username: String?
 }
 
 struct Name: Codable {
     var given: String?
     var family: String?
-
-    init(given: String?, family: String?){
-        self.given = given ?? ""
-        self.family = family ?? ""
-    }
 }
 
-@objc public class ActiveUser: NSObject{
+public class ActiveUser: NSObject{
     
     func setUserData(data: [String:Any]) -> [User]?{
         var usersArray = [User]()
