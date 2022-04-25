@@ -7,7 +7,7 @@
 
 import UIKit
 import UserNotifications
-import PingOne
+import PingOneSDK
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate {

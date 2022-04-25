@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  PairViewController.swift
 //  Authenticator
 //
 //  Copyright © 2019 Ping Identity. All rights reserved.
@@ -7,7 +7,7 @@
 
 import UIKit
 import AVFoundation
-import PingOne
+import PingOneSDK
 
 class PairViewController: MainViewController, UITextFieldDelegate, QRCaptureDelegate {
 
@@ -26,55 +26,31 @@ class PairViewController: MainViewController, UITextFieldDelegate, QRCaptureDele
     @IBOutlet weak var pairBtn: UIButton!
     @IBOutlet weak var cancelBtn: UIButton!
     
+    var isPairingScreen = true
     private var capture: QRCapture!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setupScreenTexts()
-        
         capture = QRCapture()
         capture.delegate = self
-        self.cameraView.clipsToBounds = true
-    
-        setupEnableCameraView()
-        
-        addKeyboardNotifications()
-        
-        self.navBar.layer.applySketchShadow(color: .darkGray)
     }
     
     // MARK: Lifecycle
     
-    override func viewDidLayoutSubviews(){
-        if Defaults.isPaired(){
-            cancelBtn.isHidden = false
-        }
-        if  self.presentedViewController?.isKind(of: StatusViewController.self) ?? false{
-            return
-        }
-        self.capture.start()
-    }
-    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.cameraView.alpha = 0
-        self.keyboardHeightFactor = 1.2
         
-        //Reset Views
-        if Defaults.isPaired(){
-            self.cancelBtn.isHidden = false
-        }
+        // Handle camera UI
+        setupEnableCameraView()
+        cameraView.alpha = 0
+        cameraView.clipsToBounds = true
         
-        //Reset navigationBar
-        if let navigation = self.navigationController as? NavigationController {
-            navigation.navBar.sideMenuBtn.isHidden = true
-            navigation.navBar.sideMenuBtn.isUserInteractionEnabled = false
-            navigation.navigationBar.isHidden = false
-            navigation.navBar.isHidden = false
-            navigation.navBar.layer.applySketchShadow(color: .darkGray)
-        }
-
+        // Handle texts
+        setupScreenTexts()
+        hideNavBarButtons()
+  
+        // Handle permissions
         DispatchQueue.main.async{
             Defaults.increaseNotificationPermissionCounter()
             if  Defaults.getNotificationPermissionCounter() < DefaultsKeys.maxNotificationPersmissionRequests && Defaults.getNotificationPermissionCounter() != 2 { //Here we prompt user from second time app is opened, since this is already done that on Notifications screen on first time.
@@ -93,8 +69,9 @@ class PairViewController: MainViewController, UITextFieldDelegate, QRCaptureDele
                     }
                 })
             } else {
-                self.enableCameraView.isHidden = true
-                self.enableCameraBtn.isEnabled = false
+                self.enableCameraView.alpha = 1
+                self.enableCameraView.isHidden = false
+                self.enableCameraBtn.isEnabled = true
                 self.startCameraPreview()
             }
        }
@@ -103,24 +80,11 @@ class PairViewController: MainViewController, UITextFieldDelegate, QRCaptureDele
     func startCameraPreview(){
         self.capture.addPreviewLayerTo(self.cameraView, withDelay: false) { (isDone) in
             if isDone {
-                self.capture.start()
                 UIView.animate(withDuration: 0.25) {
                     self.cameraView.alpha = 1
                 }
             }
         }
-    }
-    
-    func didFinishCapture(){
-        self.capture.addPreviewLayerTo(self.cameraView, withDelay: true) { (isDone) in
-            if isDone {
-                self.capture.start()
-                UIView.animate(withDuration: 0.25) {
-                    self.cameraView.alpha = 1
-                }
-            }
-        }
-
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -128,22 +92,80 @@ class PairViewController: MainViewController, UITextFieldDelegate, QRCaptureDele
         self.capture.stop()
     }
     
-    deinit {
-        removeKeyboardNotifications()
-    }
-    
     func setupScreenTexts(){
+        // Setup enable button
+        if Defaults.isPaired(){
+            cancelBtn.isHidden = false
+        }
+        cancelBtn.isHidden = !Defaults.isPaired()
+        
+        // Setup texts
+        pairingKeyTextField.text = ""
         enableDescriptionLbl.text = "enable_camera_description".localized
         enableCameraBtn.setTitle("enable_button".localized, for: .normal)
-        pairingTitleLbl.text = "pairing_title".localized
-        descriptionLbl.text = "pairing_description".localized
         
-        pairingKeyTextField.attributedPlaceholder = NSAttributedString(string: "pairing_key_placeholder".localized, attributes: [
-            .foregroundColor: UIColor.customLightGrey,
-            .font: UIFont.italicSystemFont(ofSize: 18)
-        ])
+        pairingTitleLbl.text = isPairingScreen ? "pairing_title".localized : "authentication_title".localized
+        descriptionLbl.text = isPairingScreen ? "pairing_description".localized : "authentication_description".localized
+    
+        if isPairingScreen { // Pairing
+            pairingKeyTextField.keyboardType = .numberPad
+            pairingTitleLbl.text = "pairing_title".localized
+            descriptionLbl.text = "pairing_description".localized
+            pairingKeyTextField.attributedPlaceholder = NSAttributedString(string: "pairing_key_placeholder".localized, attributes: [
+                .foregroundColor: UIColor.customLightGrey,
+                .font: UIFont.italicSystemFont(ofSize: 18)
+            ])
+            pairBtn.setTitle("pair".localized, for: .normal)
+        } else {
+            // Authentication with QR
+            pairingKeyTextField.keyboardType = .namePhonePad
+            pairingTitleLbl.text = "authentication_title".localized
+            descriptionLbl.text = "authentication_description".localized
+            pairingKeyTextField.attributedPlaceholder = NSAttributedString(string: "authentication_key_placeholder".localized, attributes: [
+                .foregroundColor: UIColor.customLightGrey,
+                .font: UIFont.italicSystemFont(ofSize: 18)
+            ])
+            pairBtn.setTitle("authenticate".localized, for: .normal)
+        }
         
         pairingKeyTextField.font = UIFont.systemFont(ofSize: 18)
+    }
+    
+    func moveToUsersOnPairingSuccess(){
+        self.capture.stop()
+        DispatchQueue.main.async {
+            if let navigation = self.navigationController as? NavigationController, let story = self.storyboard, let usersVc = story.instantiateViewController(withIdentifier: ViewControllerKeys.UsersVcID) as? UsersViewController {
+                navigation.modalTransitionStyle = .crossDissolve
+                
+                Defaults.addedNewUser()
+                
+                var wasUsersVCPresented = false
+                if let viewControllers = self.navigationController?.viewControllers {
+                    for controller in viewControllers {
+                        if controller is UsersViewController {
+                            wasUsersVCPresented = true
+                            break
+                        }
+                    }
+                }
+
+                if wasUsersVCPresented && Defaults.isPaired() {
+                    navigation.popViewController(animated: true)
+                } else {
+                    Defaults.setPaired(isPaired: true)
+                    navigation.pushViewController(usersVc, animated: true)
+                }
+            }
+        }
+    }
+    
+    func moveToUsersOnAuthQRSuccess(){
+        DispatchQueue.main.async {
+            if let navigation = self.navigationController as? NavigationController {
+                navigation.modalTransitionStyle = .crossDissolve
+                navigation.popViewController(animated: true)
+            }
+        }
     }
     
     // MARK: Handle permissions
@@ -165,6 +187,7 @@ class PairViewController: MainViewController, UITextFieldDelegate, QRCaptureDele
                     }
                 } else {
                     self.enableCameraView.isHidden = false
+                    self.cameraView.isHidden = false
                     
                     guard let settingsUrl = URL(string: UIApplication.openSettingsURLString) else {
                         return
@@ -209,73 +232,143 @@ class PairViewController: MainViewController, UITextFieldDelegate, QRCaptureDele
     }
     
     @IBAction func pairBtnAction(_ sender: UIButton) {
-        if let pairingKey = pairingKeyTextField.text{
-          startPairing(pairingKey)
+        if let code = pairingKeyTextField.text{
+            if isPairingScreen {
+                startPairing(code)
+            } else {
+                startAuthentication(code)
+            }
         }
     }
     
     // MARK: Pairing
     
-    func startPairing(_ withPairingKey: String){
+    func startPairing(_ pairingKey: String){
         DispatchQueue.main.async{
             self.view.endEditing(true)
             
-            if let story = self.storyboard{
-                let statusVc = story.instantiateViewController(withIdentifier: ViewControllerKeys.StatusVcID) as! StatusViewController
-                statusVc.isAuth = false
-                
-                guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
-                    print("Error accessing AppDelegate")
-                    return
+            guard let story = self.storyboard else { return }
+            let statusVc = story.instantiateViewController(withIdentifier: ViewControllerKeys.StatusVcID) as! StatusViewController
+            statusVc.isPairing = true
+            
+            guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
+                print("Error accessing AppDelegate")
+                return
+            }
+            statusVc.modalPresentationStyle = .overCurrentContext
+            statusVc.modalTransitionStyle = .crossDissolve
+            appDelegate.containerVc!.present(statusVc, animated: true, completion: {
+                self.pairing(pairingKey, statusVc)
+            })
+        }
+    }
+    
+    func pairing(_ keyPair: String, _ statusVc: StatusViewController) {
+        PingOne.pair(keyPair) { (reponse, error) in
+            DispatchQueue.main.async{
+                if let error = error{
+                    print(error.localizedDescription)
+                    statusVc.authStatus = .failure
+                    statusVc.message = error.localizedDescription
+                    statusVc.failure()
+                    self.startCameraPreview()
+                } else {
+                    statusVc.authStatus = .success
+                    statusVc.success()
+                    self.moveToUsersOnPairingSuccess()
                 }
-                statusVc.modalPresentationStyle = .overCurrentContext
-                statusVc.modalTransitionStyle = .crossDissolve
-                appDelegate.containerVc!.present(statusVc, animated: true, completion: {
-                 
-                //Start pairing
-                PingOne.pair(withPairingKey) { (reponse, error) in
-                    if let error = error{
-                        print(error.localizedDescription)
-                        
-                        DispatchQueue.main.async{
-                            statusVc.authStatus = .failure
-                            statusVc.message = error.localizedDescription
-                            statusVc.failure()
-                            self.didFinishCapture()
-                        }
-                    }
-                    else{
-                        DispatchQueue.main.async{
-                            statusVc.authStatus = .success
-                            statusVc.success()
-                            self.moveToUsersOnSuccess()
-                        }
-                    }
-                }
-                
-                })
             }
         }
     }
     
-    func moveToUsersOnSuccess(){
-        DispatchQueue.main.async {
-            if let navigation = self.navigationController as? NavigationController, let story = self.storyboard{
-                let usersVc = story.instantiateViewController(withIdentifier: ViewControllerKeys.UsersVcID) as! UsersViewController
-                navigation.modalTransitionStyle = .crossDissolve
-                
-                Defaults.addedNewUser()
-                
-                if Defaults.isPaired() {
-                    navigation.popViewController(animated: true)
-                } else {
-                    Defaults.setPaired(isPaired: true)
-                    navigation.pushViewController(usersVc, animated: true)
+    // MARK: Authentication with QR
+    
+    func startAuthentication(_ authCode: String) {
+        DispatchQueue.main.async{
+            self.view.endEditing(true)
+            
+            guard let story = self.storyboard else { return }
+            let statusVc = story.instantiateViewController(withIdentifier: ViewControllerKeys.StatusVcID) as! StatusViewController
+            statusVc.isAuthQRCode = true
+            
+            guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
+                print("Error accessing AppDelegate")
+                return
+            }
+            statusVc.modalPresentationStyle = .overCurrentContext
+            statusVc.modalTransitionStyle = .crossDissolve
+            appDelegate.containerVc!.present(statusVc, animated: true, completion: {
+                self.authenticateCode(authCode, statusVc)
+            })
+        }
+    }
+    
+    func authenticateCode(_ authCode: String, _ statusVc: StatusViewController){
+        PingOne.authenticate(authCode) { authenticationObject, error in
+            DispatchQueue.main.async {
+                if let error = error {
+                    self.startCameraPreview()
+                    print(error.localizedDescription)
+                    statusVc.authStatus = .failure
+                    statusVc.message = error.localizedDescription
+                    statusVc.failure()
+                }
+                if let authObj = authenticationObject, let status = authObj.status {
+                    if status == AuthenticateCode.statusCompleted {
+                        // Single user with approval not required, no need for user selection
+                        if authObj.userApproval == AuthenticateCode.userApprovalNotRequired && authObj.users?.count == 1 {
+                            statusVc.authStatus = .success
+                            statusVc.success()
+                            statusVc.authObject = authenticationObject
+                            self.moveToUsersOnAuthQRSuccess()
+                        }
+                        // For multiple user and if approval required
+                        if authObj.userApproval == AuthenticateCode.userApprovalRequired {
+                            statusVc.continueToUsersSelection()
+                            self.moveToUserApprovalVC(authObj)
+                        }
+
+                    } else if status == AuthenticateCode.statusClaimed {
+                        // Flow not completed yet, needs user approval
+                        statusVc.continueToUsersSelection()
+                        self.moveToUserApprovalVC(authObj)
+                        
+                    } else if status == AuthenticateCode.statusExpired {
+                        self.startCameraPreview()
+                        statusVc.authStatus = .timeout
+                        statusVc.timeout()
+                    }
                 }
             }
         }
     }
-   
+    
+    func moveToUserApprovalVC(_ authObj: AuthenticationObject){
+        DispatchQueue.main.async {
+            if let navigation = self.navigationController as? NavigationController, let story = self.storyboard, let authCodeVc = story.instantiateViewController(withIdentifier: ViewControllerKeys.AuthCodeVcID) as? AuthCodeViewController {
+                authCodeVc.authObject = authObj
+                authCodeVc.userWasPicked = false
+                navigation.modalTransitionStyle = .crossDissolve
+                
+                var wasAuthCodeVCPresented = false
+                if let viewControllers = self.navigationController?.viewControllers {
+                    for controller in viewControllers {
+                        if controller is AuthCodeViewController {
+                            wasAuthCodeVCPresented = true
+                            break
+                        }
+                    }
+                }
+
+                if wasAuthCodeVCPresented {
+                    navigation.popToViewController(authCodeVc, animated: true)
+                } else {
+                    navigation.pushViewController(authCodeVc, animated: true)
+                }
+            }
+        }
+    }
+    
     // MARK: TextField Delegates
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?){
@@ -289,14 +382,22 @@ class PairViewController: MainViewController, UITextFieldDelegate, QRCaptureDele
     }
        
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        if let updatedString = (textField.text as NSString?)?.replacingCharacters(in: range, with: string){
+        
+        let minCharCount = isPairingScreen ? DefaultsKeys.minCharactersForPairKey : DefaultsKeys.minCharactersForAuthCode
+        
+        if var updatedString = (textField.text as NSString?)?.replacingCharacters(in: range, with: string){
             
-            if updatedString.count > DefaultsKeys.minCharactersForPairKey {
+            if updatedString.count > minCharCount {
                 return false
             }
             
             DispatchQueue.main.async{
-                if updatedString.count > DefaultsKeys.minCharactersForPairKey - 1 {
+                
+                // Set letter uppercased
+                updatedString = updatedString.uppercased()
+                textField.text = updatedString
+                
+                if updatedString.count > minCharCount - 1 {
                     self.pairBtn.isEnabled = true
                     self.pairBtn.borderColor = UIColor.customBlue
                     self.pairBtn.setTitleColor(UIColor.customBlue, for: .normal)
@@ -320,7 +421,11 @@ class PairViewController: MainViewController, UITextFieldDelegate, QRCaptureDele
         }
         
         print("found code: \(code)")
-        startPairing(code)
+        if isPairingScreen {
+            startPairing(code)
+        } else {
+            startAuthentication(code)
+        }
     }
     
     func failed(error: String) {
@@ -328,9 +433,30 @@ class PairViewController: MainViewController, UITextFieldDelegate, QRCaptureDele
     }
     
     @IBAction func closeVc(_ sender: UIButton) {
-       if let navigation = self.navigationController as? NavigationController {
+        CATransaction.begin()
+
+        CATransaction.setCompletionBlock({
+            self.moveToUsers()
+        })
+
+        self.view.endEditing(true)
+        CATransaction.commit()
+    }
+    
+    func moveToUsers(){
+        if let navigation = self.navigationController as? NavigationController, let story = self.storyboard, let usersVc = story.instantiateViewController(withIdentifier: ViewControllerKeys.UsersVcID) as? UsersViewController {
             navigation.modalTransitionStyle = .crossDissolve
-            navigation.popViewController(animated: true)
+
+            if let viewControllers = self.navigationController?.viewControllers {
+                for controller in viewControllers {
+                    if let usersViewController = controller as? UsersViewController {
+                        navigation.popToViewController(usersViewController, animated: true)
+                        return
+                    }
+                }
+            }
+            
+            navigation.pushViewController(usersVc, animated: true)
         }
     }
 }

@@ -29,10 +29,8 @@ extension UIDevice {
     }
     
     var hasNotch: Bool {
-        if #available(iOS 11.0, *) {
-           return UIApplication.shared.keyWindow?.safeAreaInsets.bottom ?? 0 > 0
-        }
-        return false
+        let bottom = UIApplication.shared.keyWindow?.safeAreaInsets.bottom ?? 0
+        return bottom > 0
    }
 }
 

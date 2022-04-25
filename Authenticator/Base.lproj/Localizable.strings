@@ -15,6 +15,7 @@
 //Pairing
 "enable_camera_description" = "You must enable camera permissions in order to scan.";
 "enable_button" = "Enable";
+"pair" = "Pair";
 "pairing_title" = "Pairing";
 "pairing_description" = "To complete pairing, scan the QR code displayed in your browser, or enter the pairing key manually.";
 "pairing_key_placeholder" = "Pairing Key";
@@ -24,9 +25,20 @@
 "cancel" = "Cancel";
 "ok" = "OK";
 
+//Authentication
+"authentication_title" = "Authentication";
+"authentication_description" = "To authenticate, scan the QR code displayed in your browser, or enter the pairing key manually.";
+"authentication_key_placeholder" = "Enter Code Manualy";
+"authenticate" = "Authenticate";
+
+//Authentication with QR code
+"select_account_title" = "Select account";
+"select_account_subtitle" = "Select one of the listed accounts to authenticate with.";
+"approve_account_title" = "Approve account";
+
 //Users
 "users_table_title" = "Accounts";
-"add_new_user_button" = "New";
+"add_new_user_button" = "Add Account";
 "network_error" = "No network";
 
 //Status
@@ -34,7 +46,10 @@
 "paired" = "Paired"; //On pair success
 "blocked" = "Blocked"; //On pair failure
 "timeout" = "Timed Out"; //Pairing was not completed within timeout window
-"approved" = "Approved"; //MFA approved
+"approved" = "Approved"; //MFA or QR authentication approved
+"denied" = "Denied"; //QR authentication denied
+"completed" = "Completed"; //QR authentication completed
+"error" = "Error"; //QR code failed
 
 //Authorization
 "approve_button" = "Approve";

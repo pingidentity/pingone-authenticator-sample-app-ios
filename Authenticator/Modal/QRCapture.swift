@@ -22,13 +22,8 @@ class QRCapture: NSObject, AVCaptureMetadataOutputObjectsDelegate {
     
     func stop(){
         if (captureSession?.isRunning == true) {
-            captureSession.stopRunning()
-        }
-    }
-    
-    func start(){
-        if (captureSession?.isRunning == false) {
-            captureSession.startRunning()
+            captureSession?.stopRunning()
+            print("Stopped camera scan")
         }
     }
     
@@ -76,6 +71,7 @@ class QRCapture: NSObject, AVCaptureMetadataOutputObjectsDelegate {
             self.previewLayer.videoGravity = .resizeAspectFill
             cameraView.layer.addSublayer(self.previewLayer)
             self.captureSession.startRunning()
+            print("Started camera scan")
             completion(true)
         }
     }
@@ -85,7 +81,8 @@ class QRCapture: NSObject, AVCaptureMetadataOutputObjectsDelegate {
     }
     
     func metadataOutput(_ output: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection) {
-        captureSession.stopRunning()
+        captureSession?.stopRunning()
+        print("Stopped camera scan")
         if let metadataObject = metadataObjects.first {
             guard let readableObject = metadataObject as? AVMetadataMachineReadableCodeObject else { return }
             guard let stringValue = readableObject.stringValue else { return }

@@ -16,6 +16,7 @@ class MenuTableViewCell: UITableViewCell {
         
         self.selectionStyle =  UITableViewCell.SelectionStyle.none
         self.menuNameLbl.textColor = UIColor.customBlue
+        self.frame.size.height = CGFloat(DefaultsKeys.sideMenuCellHeight)
         
         setupBorder()
     }

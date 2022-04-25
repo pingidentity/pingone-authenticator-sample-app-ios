@@ -1,12 +1,12 @@
 //
-//  HomeViewController.swift
+//  UsersViewController.swift
 //  Authenticator
 //
 //  Copyright © 2019 Ping Identity. All rights reserved.
 //
 
 import UIKit
-import PingOne
+import PingOneSDK
 
 class UsersViewController: MainViewController, UITableViewDelegate, UITableViewDataSource, UserTableViewCellDelegate {
 
@@ -22,57 +22,21 @@ class UsersViewController: MainViewController, UITableViewDelegate, UITableViewD
     private var usersFromServer: [User]?
     
     private var usersDictStorage = Defaults.getUsersData()
-    private var isGetUsersFired = false
     private var isNewUserAdded = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        addKeyboardNotifications()
+        NotificationCenter.default.addObserver(self, selector: #selector(scanQRMenuTapped), name: NSNotification.Name(NotificationKeys.scanQRMenuTapped), object: nil)
         setupScreen()
-
         setupPasscode()
-        getUsers()
-        isGetUsersFired = true
     }
     
     //MARK: Lifecycle
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        //Set navigation bar
-        if let navigation = self.navigationController as? NavigationController {
-            navigation.navBar.sideMenuBtn.isHidden = false
-            navigation.navBar.sideMenuBtn.isUserInteractionEnabled = true
-            navigation.navigationBar.isHidden = false
-            navigation.navBar.isHidden = false
-            navigation.navBar.layer.applySketchShadow(color: .lightGray)
-            
-            //Set passcode view
-            if !PasscodeView.isHidden {
-                if UIDevice.current.hasNotch {
-                    passcodeViewTopConstraint.constant = 10
-                }
-                PasscodeView.setNeedsUpdateConstraints()
-            }
-        }
-
-        self.keyboardHeightFactor = 0.8
-        
-        if !isGetUsersFired {
-            self.isGetUsersFired = true
-            getUsers()
-        }
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(true)
-        self.isGetUsersFired = false
-    }
-    
-    deinit {
-        removeKeyboardNotifications()
+        getUsers()
     }
 
     func setupScreen(){
@@ -92,72 +56,86 @@ class UsersViewController: MainViewController, UITableViewDelegate, UITableViewD
     }
     
     private func handlePasscode(_ oneTimePasscodeInfo: OneTimePasscodeInfo?, _ error: Error?) {
-        if let _ = error {
-            PasscodeView.isHidden = true
-            return
+        DispatchQueue.main.async {
+            if let _ = error {
+                self.PasscodeView.isHidden = true
+                return
+            }
+            
+            guard let passcodeData = oneTimePasscodeInfo else {
+                return
+            }
+            
+            self.PasscodeView.update(passcode: passcodeData)
+            self.PasscodeView.isHidden = false
+            self.PasscodeView.delegate = self
         }
-        
-        guard let passcodeData = oneTimePasscodeInfo else {
-            return
+    }
+    
+    @objc private func scanQRMenuTapped(){
+        if let navigation = self.navigationController as? NavigationController, let story = self.storyboard, let pairVc = story.instantiateViewController(withIdentifier: ViewControllerKeys.PairVcID) as? PairViewController {
+            navigation.modalTransitionStyle = .crossDissolve
+            pairVc.isPairingScreen = false
+            
+            if let viewControllers = self.navigationController?.viewControllers {
+                for controller in viewControllers {
+                    if controller is PairViewController {
+                        if let pairingViewController = controller as? PairViewController {
+                            pairingViewController.isPairingScreen = false
+                            navigation.popToViewController(pairingViewController, animated: true)
+                            return
+                        }
+                    }
+                }
+            }
+
+            navigation.pushViewController(pairVc, animated: true)
         }
-        
-        PasscodeView.update(passcode: passcodeData)
-        PasscodeView.isHidden = false
-        PasscodeView.delegate = self
     }
     
     //MARK: Load Users
     
     func getUsers(){
         startLoadingAnimation()
-            
         PingOne.getInfo { (activeUsers, error) in
-        
-            DispatchQueue.main.async {
+                if let error = error {
+                    self.stopLoadingAnimation()
+                    if error.code == ErrorCode.deviceIsNotPaired.rawValue{
+                        Defaults.setPaired(isPaired: false)
+                    }
+                }
                 
-                if let activeUsers = activeUsers{
-                
-                    if !self.isGetUsersFired { return }
+                if let activeUsers = activeUsers {
                     
-                    //Handle users synch and table reload
-                    if let usersFromServer = self.activeUser.setUserData(data: activeUsers) {
-                        self.usersFromServer = usersFromServer
-                        self.activeUsersArray = self.usersHandler.getSynchedUsers(usersFromServer)
-                        let isActiveUsersArrayEmpty = self.activeUsersArray?.isEmpty ?? true
-                        
-                        if self.usersHandler.isNewUserAdded() && !isActiveUsersArrayEmpty {
-                            self.startEditNewUserIfNeeded()
-                            self.stopLoadingAnimation()
-                            self.usersHandler.addedUserReset()
-                            return
-                        }
-                        
-                        if isActiveUsersArrayEmpty && self.isGetUsersFired { //No users
-                            Defaults.setPaired(isPaired: false)
-                            self.moveToPairing()
-                        } else {
-                            self.usersTableView.reloadData()
-                        }
-                        self.stopLoadingAnimation()
+                    // Handle users synch and table reload
+                    guard let usersFromServer = self.activeUser.setUserData(data: activeUsers) else { return }
+                    self.usersFromServer = usersFromServer
+                    self.activeUsersArray = self.usersHandler.getSynchedUsers(usersFromServer)
+                    let isActiveUsersArrayEmpty = self.activeUsersArray?.isEmpty ?? true
+                    
+                    if self.usersHandler.isNewUserAdded() && !isActiveUsersArrayEmpty {
+                        self.startEditNewUserIfNeeded()
+                        self.usersHandler.addedUserReset()
+                        return
                     }
                     
-                    self.setupPasscode()
+                    self.stopLoadingAnimation()
                     
-                } else
-                    if let error = error{
-                        if error.code == ErrorCode.deviceIsNotPaired.rawValue{
-                            Defaults.setPaired(isPaired: false)
-                        }
+                    // In case there are no users
+                    if isActiveUsersArrayEmpty {
+                        Defaults.setPaired(isPaired: false)
+                        self.moveToPairing()
                     }
                 
-                self.usersHandler.addedUserReset()
-                self.stopLoadingAnimation()
+                    DispatchQueue.main.async {
+                        self.usersTableView.reloadData()
+                        self.setupPasscode()
+                    }
             }
         }
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-
         return activeUsersArray?.count ?? 0
     }
 
@@ -205,9 +183,8 @@ class UsersViewController: MainViewController, UITableViewDelegate, UITableViewD
     }
     
     func startEditNewUserIfNeeded(){
-        self.view.isUserInteractionEnabled = false
-        
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.5){
+            self.view.isUserInteractionEnabled = false
             self.view.layoutIfNeeded()
             self.usersTableView.reloadData()
             
@@ -222,16 +199,35 @@ class UsersViewController: MainViewController, UITableViewDelegate, UITableViewD
             cell?.userFullnameTextEdit.becomeFirstResponder()
             cell?.startUserEditing()
             self.view.isUserInteractionEnabled = true
+            self.stopLoadingAnimation()
         }
     }
     
     func moveToPairing(){
-        if let navigation = self.navigationController as? NavigationController, let story = self.storyboard{
-            let pairVc = story.instantiateViewController(withIdentifier: ViewControllerKeys.PairVcID) as! PairViewController
-            self.usersTableView.reloadData()
-            
-            navigation.modalTransitionStyle = .crossDissolve
-            navigation.pushViewController(pairVc, animated: true)
+        DispatchQueue.main.async {
+            if let navigation = self.navigationController as? NavigationController, let story = self.storyboard, let pairVc = story.instantiateViewController(withIdentifier: ViewControllerKeys.PairVcID) as? PairViewController {
+                self.usersTableView.reloadData()
+                navigation.modalTransitionStyle = .crossDissolve
+                pairVc.isPairingScreen = true
+                
+                var wasPairingVCPresented = false
+                if let viewControllers = self.navigationController?.viewControllers {
+                    for controller in viewControllers {
+                        if controller is PairViewController {
+                            if let pairingViewController = controller as? PairViewController {
+                                pairingViewController.isPairingScreen = true
+                                navigation.popToViewController(controller, animated: true)
+                            }
+                            wasPairingVCPresented = true
+                            break
+                        }
+                    }
+                }
+
+                if !wasPairingVCPresented {
+                    navigation.pushViewController(pairVc, animated: true)
+                }
+            }
         }
     }
     

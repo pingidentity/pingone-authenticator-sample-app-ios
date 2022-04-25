@@ -11,7 +11,7 @@ protocol UserTableViewCellDelegate: AnyObject {
     func userNameUpdateDone()
 }
 
-class UserTableViewCell: UITableViewCell, UITextFieldDelegate {
+class UserTableViewCell: MainTableViewCell, UITextFieldDelegate {
 
     @IBOutlet weak var userFullnameTextEdit: UITextField!
     @IBOutlet weak var saveUserBtn: UIButton!
@@ -20,7 +20,6 @@ class UserTableViewCell: UITableViewCell, UITextFieldDelegate {
     var synchedUser : User?
     var userFromServer : User?
     
-    var isFirstCell = false
     var isEditMode: Bool = false
     var isUsersTableInEditMode: Bool = false
     var usersDictStorage = Defaults.getUsersData()
@@ -33,28 +32,8 @@ class UserTableViewCell: UITableViewCell, UITextFieldDelegate {
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        let backgroundView = UIView()
-        backgroundView.backgroundColor = UIColor.clear
-        self.selectedBackgroundView = backgroundView
-        
         setupEditText()
         userFullnameTextEdit.delegate = self
-    }
-
-    func setupBorders(){
-        if isFirstCell {
-            let topBorder = UIView(frame: CGRect(x: 0, y: 0, width: self.frame.size.width, height: 0.5))
-            topBorder.backgroundColor = .customLightGrey
-            self.addSubview(topBorder)
-
-            let bottomBorder = UIView(frame: CGRect(x: 0, y: self.frame.size.height - 1.0, width: self.frame.size.width, height: 0.5))
-            bottomBorder.backgroundColor = .customLightGrey
-            self.addSubview(bottomBorder)
-        } else {
-            let bottomBorder = UIView(frame: CGRect(x: 0, y: self.frame.size.height - 1.0, width: self.frame.size.width, height: 0.5))
-            bottomBorder.backgroundColor = .customLightGrey
-            self.addSubview(bottomBorder)
-        }
     }
     
     func setupEditText(){
@@ -64,7 +43,7 @@ class UserTableViewCell: UITableViewCell, UITextFieldDelegate {
         userFullnameTextEdit.clearButtonMode = .whileEditing
         userFullnameTextEdit.textColor = .customDarkGrey
         
-        userFullnameTextEdit.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 20, height: userFullnameTextEdit.frame.height))
+        userFullnameTextEdit.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 12, height: userFullnameTextEdit.frame.height))
         userFullnameTextEdit.leftViewMode = .always
         
         userFullnameTextEdit.borderWidth = 0.5

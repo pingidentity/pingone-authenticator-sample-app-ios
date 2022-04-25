@@ -11,20 +11,47 @@ class MainViewController: UIViewController {
 
     private var spinner = UIActivityIndicatorView()
     private var reachability: Reachability?
-    
-    var viewOriginY : CGFloat = 0
-    var keyboardHeightFactor : CGFloat = 1.0
+    var isKeyboardVisible = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         initLoadingAnimation()
         setupReachability()
+        addKeyboardNotifications()
+        resetNavigationBar()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.viewOriginY = self.view.frame.origin.y //Anchor for keyboard location calculation
+        resetNavigationBar()
+    }
+    
+    func resetNavigationBar(){
+        // Hide buttton in navigationBar
+        if let navigation = self.navigationController as? NavigationController {
+            navigation.navBar.setupView()
+            navigation.navBar.enableNavButtons()
+            navigation.navBar.layer.applySketchShadow(color: .darkGray)
+            
+            if let navHeight = self.navigationController?.navigationBar.frame.height {
+                navigation.navBar.navHeight = navHeight + UIApplication.shared.statusBarFrame.height
+            }
+        }
+    }
+    
+    func hideNavBarButtons(){
+        // Hide buttton in navigationBar
+        if let navigation = self.navigationController as? NavigationController {
+            navigation.navBar.setupView()
+            navigation.navBar.disableNavButtons()
+        }
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(UIResponder.keyboardWillShowNotification)
+        NotificationCenter.default.removeObserver(UIResponder.keyboardWillHideNotification)
+        NotificationCenter.default.removeObserver(NSNotification.Name(NotificationKeys.toggleSideMenuStart))
     }
     
     func setupReachability(){
@@ -89,21 +116,15 @@ class MainViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
-    func removeKeyboardNotifications(){
-        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
-    }
-    
     @objc func keyboardWillShow(notification: NSNotification) {
-        let factor = keyboardHeightFactor
-        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
-            self.view.frame.origin.y -= keyboardSize.height * factor
-        }
-        
+
+        self.view.frame = CGRect(x: 0, y: -self.view.frame.height/6 , width: self.view.frame.width, height: self.view.frame.height)
+ 
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
             print("Error accessing AppDelegate")
             return
         }
+        
         appDelegate.isKeyboardVisible = true
     }
 
@@ -114,10 +135,11 @@ class MainViewController: UIViewController {
             let navBar = navController.navBar
             navBarHeight = navBar.frame.height
         }
-            
-        if view.frame.origin.y != navBarHeight {
-            self.view.frame.origin.y = navBarHeight - 15
+          
+        if self.view.frame.origin.y != navBarHeight {
+            self.view.frame.origin.y = navBarHeight
         }
+        self.view.layoutIfNeeded()
         
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
             print("Error accessing AppDelegate")
@@ -125,5 +147,4 @@ class MainViewController: UIViewController {
         }
         appDelegate.isKeyboardVisible = false
     }
-
 }

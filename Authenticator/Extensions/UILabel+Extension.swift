@@ -2,7 +2,6 @@
 //  UILabel+Extension.swift
 //  Authenticator
 //
-//  Created by Ilya Nedyuha on 22/12/2020.
 //  Copyright © 2020 Ping Identity. All rights reserved.
 //
 
