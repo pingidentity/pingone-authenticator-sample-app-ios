@@ -16,6 +16,7 @@ This sample application demonstrates an authenticator-only application that uses
   - Authentication flow with push notifications using biometric FaceID and TouchID.
   - Side menu with send logs option to track customer issues with support ID.
   - Get one time passcode for paired user with timer animation.
+  - Device integrity validation for threat protection.
   - Authentication using QR Code scanning or manual typing an authentication code.
 
 ## Prerequisites
