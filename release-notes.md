@@ -1,6 +1,6 @@
 # Release Notes
 
-## v1.4.0 - April 15th, 2022
+## v1.4.0 - April 25th, 2022
 Features:
 
 - Updated SDK to version 1.7.0.
@@ -13,6 +13,10 @@ Compatibility notes:
 - Supports Xcode 13 and above.
 - Increased minimum iOS supported version to iOS 12.
 - SDK will use Elliptic Curve signature for fresh users only, not for users who upgrade from 1.6.0.
+
+Known issues:
+
+- The scanning screen (for pairing and QR authentication) sometimes displays a black band in the camera view. Usually restarting the application resolves the issue.
 
 ## v1.3.0 - August 1st, 2021
 Features:
