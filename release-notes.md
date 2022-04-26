@@ -1,7 +1,6 @@
 # Release Notes
 
 ## v1.4.0 - April 25th, 2022
-
 Features:
 
 - Updated SDK to version 1.7.0.
