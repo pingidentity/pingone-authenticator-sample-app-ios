@@ -1,5 +1,14 @@
 # Release Notes
 
+## v1.4.1 - June 13th, 2022
+Features:
+ 
+- Updated SDK to version 1.7.1.
+
+Bug fixes:
+
+- Fixed an issue where the scanning screen sometimes displayed a black band in the camera view (P14C-35769). 
+
 ## v1.4.0 - April 25th, 2022
 Features:
 
