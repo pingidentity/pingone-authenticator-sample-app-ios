@@ -27,7 +27,7 @@ class MainViewController: UIViewController {
         resetNavigationBar()
     }
     
-    func resetNavigationBar(){
+    func resetNavigationBar() {
         // Hide buttton in navigationBar
         if let navigation = self.navigationController as? NavigationController {
             navigation.navBar.setupView()
@@ -40,7 +40,7 @@ class MainViewController: UIViewController {
         }
     }
     
-    func hideNavBarButtons(){
+    func hideNavBarButtons() {
         // Hide buttton in navigationBar
         if let navigation = self.navigationController as? NavigationController {
             navigation.navBar.setupView()
@@ -54,8 +54,8 @@ class MainViewController: UIViewController {
         NotificationCenter.default.removeObserver(NSNotification.Name(NotificationKeys.toggleSideMenuStart))
     }
     
-    func setupReachability(){
-        if let navController = self.navigationController as? NavigationController{
+    func setupReachability() {
+        if let navController = self.navigationController as? NavigationController {
             let navBar = navController.navBar
             let reachability: Reachability?
             reachability = try? Reachability()
@@ -78,9 +78,9 @@ class MainViewController: UIViewController {
         }
     }
     
-    //MARK: Loading Spinner methods
+    // MARK: Loading Spinner methods
     
-    func initLoadingAnimation(){
+    func initLoadingAnimation() {
         if #available(iOS 13.0, *) {
             self.spinner.style = .medium
         } else {
@@ -95,14 +95,14 @@ class MainViewController: UIViewController {
         spinner.isHidden = true
     }
     
-    func startLoadingAnimation(){
+    func startLoadingAnimation() {
         DispatchQueue.main.async {
             self.spinner.isHidden = false
             self.spinner.startAnimating()
         }
     }
     
-    func stopLoadingAnimation(){
+    func stopLoadingAnimation() {
         DispatchQueue.main.async {
             self.spinner.isHidden = true
             self.spinner.stopAnimating()
@@ -111,14 +111,14 @@ class MainViewController: UIViewController {
     
     // MARK: Handle Keyboard Raise
     
-    func addKeyboardNotifications(){
+    func addKeyboardNotifications() {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
     @objc func keyboardWillShow(notification: NSNotification) {
 
-        self.view.frame = CGRect(x: 0, y: -self.view.frame.height/6 , width: self.view.frame.width, height: self.view.frame.height)
+        self.view.frame = CGRect(x: 0, y: -self.view.frame.height/6, width: self.view.frame.width, height: self.view.frame.height)
  
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
             print("Error accessing AppDelegate")
@@ -129,9 +129,9 @@ class MainViewController: UIViewController {
     }
 
     @objc func keyboardWillHide(notification: NSNotification) {
-        var navBarHeight : CGFloat = 0
+        var navBarHeight: CGFloat = 0
         
-        if let navController = self.navigationController as? NavigationController{
+        if let navController = self.navigationController as? NavigationController {
             let navBar = navController.navBar
             navBarHeight = navBar.frame.height
         }

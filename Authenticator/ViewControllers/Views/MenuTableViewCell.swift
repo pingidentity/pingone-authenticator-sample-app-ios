@@ -21,7 +21,7 @@ class MenuTableViewCell: UITableViewCell {
         setupBorder()
     }
     
-    func setupBorder(){
+    func setupBorder() {
         let topBorder = CALayer()
         topBorder.borderColor = UIColor.customUltraLight.cgColor
         topBorder.borderWidth = 2

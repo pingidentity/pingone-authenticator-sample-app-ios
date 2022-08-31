@@ -8,10 +8,10 @@
 import Foundation
 import UIKit
 
-extension UIImageView{
+extension UIImageView {
     
     func rotate() {
-        let rotation : CABasicAnimation = CABasicAnimation(keyPath: "transform.rotation.z")
+        let rotation: CABasicAnimation = CABasicAnimation(keyPath: "transform.rotation.z")
         rotation.toValue = NSNumber(value: Double.pi * 2)
         rotation.duration = 2
         rotation.isCumulative = true

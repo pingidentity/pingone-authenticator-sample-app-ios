@@ -104,7 +104,7 @@ public class Reachability {
         switch flags?.connection {
         case .unavailable?, nil: return .unavailable
         case .none?: return .unavailable
-        case .cellular?: return allowsCellularConnection ? .cellular : .unavailable
+        case .cellular?: return allowsCellularConnection ? .cellular: .unavailable
         case .wifi?: return .wifi
         }
     }
@@ -271,7 +271,7 @@ fileprivate extension Reachability {
     func notifyReachabilityChanged() {
         let notify = { [weak self] in
             guard let self = self else { return }
-            self.connection != .unavailable ? self.whenReachable?(self) : self.whenUnreachable?(self)
+            self.connection != .unavailable ? self.whenReachable?(self): self.whenUnreachable?(self)
             self.notificationCenter.post(name: .reachabilityChanged, object: self)
         }
 
@@ -350,15 +350,15 @@ extension SCNetworkReachabilityFlags {
     }
 
     var description: String {
-        let W = isOnWWANFlagSet ? "W" : "-"
-        let R = isReachableFlagSet ? "R" : "-"
-        let c = isConnectionRequiredFlagSet ? "c" : "-"
-        let t = isTransientConnectionFlagSet ? "t" : "-"
-        let i = isInterventionRequiredFlagSet ? "i" : "-"
-        let C = isConnectionOnTrafficFlagSet ? "C" : "-"
-        let D = isConnectionOnDemandFlagSet ? "D" : "-"
-        let l = isLocalAddressFlagSet ? "l" : "-"
-        let d = isDirectFlagSet ? "d" : "-"
+        let W = isOnWWANFlagSet ? "W": "-"
+        let R = isReachableFlagSet ? "R": "-"
+        let c = isConnectionRequiredFlagSet ? "c": "-"
+        let t = isTransientConnectionFlagSet ? "t": "-"
+        let i = isInterventionRequiredFlagSet ? "i": "-"
+        let C = isConnectionOnTrafficFlagSet ? "C": "-"
+        let D = isConnectionOnDemandFlagSet ? "D": "-"
+        let l = isLocalAddressFlagSet ? "l": "-"
+        let d = isDirectFlagSet ? "d": "-"
 
         return "\(W)\(R) \(c)\(t)\(i)\(C)\(D)\(l)\(d)"
     }

@@ -20,18 +20,18 @@ class NavBar: UIView {
         setupView()
     }
     
-    func setupView(){
+    func setupView() {
         mainView.backgroundColor = .white
         self.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: navHeight)
     }
     
-    func disableNavButtons(){
+    func disableNavButtons() {
         sideMenuBtn.isHidden = true
         scanQRBtn.isHidden = true
         sideMenuBtn.isUserInteractionEnabled = false
     }
     
-    func enableNavButtons(){
+    func enableNavButtons() {
         sideMenuBtn.isHidden = false
         scanQRBtn.isHidden = false
         sideMenuBtn.isUserInteractionEnabled = true

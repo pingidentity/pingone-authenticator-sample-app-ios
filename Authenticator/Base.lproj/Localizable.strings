@@ -18,7 +18,7 @@
 "pair" = "Pair";
 "pairing_title" = "Pairing";
 "pairing_description" = "To complete pairing, scan the QR code displayed in your browser, or enter the pairing key manually.";
-"pairing_key_placeholder" = "Pairing Key";
+"pairing_key_placeholder" = "Enter Pairing Key";
 "allow_notifications_title" = "Allow Notifications";
 "allow_notificaitons_msg" = "Allow notifications to receive authentication requests, otherwise the app won't work.";
 "settings" = "Settings";

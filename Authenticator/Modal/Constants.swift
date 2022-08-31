@@ -6,12 +6,13 @@
 //
 
 import Foundation
-struct DefaultsKeys{
+struct DefaultsKeys {
     static let isPairedKey                                  = "authenticator_is_paired_key"
     static let isUserAdded                                  = "authenticator_is_user_added_key"
     static let notificationPermissionCounter                = "notification_permission_counter"
     static let maxNotificationPersmissionRequests           = 5
-    static let minCharactersForPairKey                      = 14
+    static let shortPairKeyCount                            = 14
+    static let longPairKeyCount                             = 18
     static let minCharactersForAuthCode                     = 8
     static let sideMenuCellHeight                           = 44
     static let supportID                                    = "support_id"
@@ -33,7 +34,8 @@ struct ViewControllerKeys {
     static let UsersVcID                                    = "UsersVcID"
     static let PairVcID                                     = "PairVcID"
     static let AuthVcID                                     = "AuthVcID"
-    static let AuthCodeVcID                                 = "AuthCodeVcID"
+    static let AuthScanVcID                                 = "AuthScanVcID"
+    static let AuthSelectionVcID                            = "AuthSelectionVcID"
     static let NotificationVcID                             = "NotificationVcID"
 }
 

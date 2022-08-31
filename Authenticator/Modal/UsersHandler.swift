@@ -16,7 +16,7 @@ class UsersHandler: NSObject {
         for user in usersFromServer {
             var userUpdated = user
             
-            if let userName = usersDictStorage[user.id], (usersDictStorage[user.id]?.count ?? 0) > 0  {
+            if let userName = usersDictStorage[user.id], (usersDictStorage[user.id]?.count ?? 0) > 0 {
                 userUpdated.name.given = userName
                 userUpdated.name.family = ""
             }

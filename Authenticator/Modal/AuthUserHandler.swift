@@ -2,7 +2,7 @@
 //  AuthUserHandler.swift
 //  Authenticator
 //
-//  Copyright © 2022 Ping Identity. All rights reserved.
+//  Copyright © 2019 Ping Identity. All rights reserved.
 //
 
 import Foundation
@@ -11,7 +11,6 @@ class AuthUserHandler {
     
     func createUsersArray(_ users: [[String: Any]]) -> [User] {
         var usersArray = [User]()
-        
         for user in users {
             guard let usersData = try? JSONSerialization.data(withJSONObject: user, options: []) else {
                 continue
@@ -31,19 +30,16 @@ class AuthUserHandler {
         return usersArray
     }
     
-    func updateEditedUsers(users: [User]) -> [User]{
-        
+    func updateEditedUsers(users: [User]) -> [User] {
         var usersSynchedArray = [User]()
         let usersDictStorage = Defaults.getUsersData()
-        
         for user in users {
             var userUpdated = user
             
-            if let userName = usersDictStorage[user.id], (usersDictStorage[user.id]?.count ?? 0) > 0  {
+            if let userName = usersDictStorage[user.id], (usersDictStorage[user.id]?.count ?? 0) > 0 {
                 userUpdated.name.given = userName
                 userUpdated.name.family = ""
             }
-            
             usersSynchedArray.append(userUpdated)
         }
         return usersSynchedArray

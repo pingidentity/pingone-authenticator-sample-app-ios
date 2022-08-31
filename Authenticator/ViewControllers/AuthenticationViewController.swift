@@ -24,7 +24,7 @@ class AuthenticationViewController: MainViewController {
     
     private var isBiomertics = true
     private let context = LAContext()
-    private var timer: Timer!
+    private var timer: Timer?
     
     enum BiometricType {
         case none
@@ -51,7 +51,7 @@ class AuthenticationViewController: MainViewController {
                 case .faceID:
                     return .faceID
                 @unknown default:
-                    fatalError()
+                    return .none
                 }
             } else {
                 return  .touchID
@@ -59,7 +59,7 @@ class AuthenticationViewController: MainViewController {
         }
     }
     
-    //MARK: Life Cycle
+    // MARK: Life Cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -79,18 +79,18 @@ class AuthenticationViewController: MainViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(true)
         
-        self.timer.invalidate()
+        self.timer?.invalidate()
         self.context.invalidate()
     }
     
-    func setupNotificationView(){
+    func setupNotificationView() {
         approveBtn.setTitle("approve_button".localized, for: .normal)
         denyBtn.setTitle("deny_button".localized, for: .normal)
         notificationTitle.text = pushTitle ?? ""
         notificationBody.text = pushMessage ?? ""
     }
     
-    //MARK: Authentication methods
+    // MARK: Authentication methods
     
     @IBAction func approve(_ sender: UIButton) {
         self.startLoadingAnimation()
@@ -102,7 +102,7 @@ class AuthenticationViewController: MainViewController {
         denyProcess()
     }
     
-    func approvalProcess(){
+    func approvalProcess() {
         resetAppNotification()
         guard let notificationObject = notificationObject else {
             self.stopLoadingAnimation()
@@ -110,26 +110,27 @@ class AuthenticationViewController: MainViewController {
         
         notificationObject.approve(withAuthenticationMethod: DefaultsKeys.notificationMethodType) { (error) in
             DispatchQueue.main.async {
-                if let error = error{
+                if let error = error {
                     if error.code == ServerErrors.timeoutError {
                         self.moveToStatusVC(status: .timeout)
                     } else {
                         self.moveToStatusVC(status: .failure)
                     }
-                }
-                else{
+                } else {
                     self.moveToStatusVC(status: .success)
                 }
             }
         }
     }
     
-    func denyProcess(){
-        if !timer.isValid {
+    func denyProcess() {
+        guard let timerIsValid = timer?.isValid else {
+            return
+        }
+        if !timerIsValid {
             self.authTimeout()
             return
         }
-        
         resetAppNotification()
         guard let notificationObject = notificationObject else {
             self.stopLoadingAnimation()
@@ -142,7 +143,7 @@ class AuthenticationViewController: MainViewController {
         }
     }
     
-    func startTimeoutCount(){
+    func startTimeoutCount() {
         guard let notificationObject = notificationObject else {
             self.stopLoadingAnimation()
         return }
@@ -150,25 +151,23 @@ class AuthenticationViewController: MainViewController {
         
         self.timer = Timer.scheduledTimer(withTimeInterval: duartion, repeats: true) { timer in
             timer.invalidate()
-
-            if (self.authAlert.presentingViewController != nil) {
+            if self.authAlert.presentingViewController != nil {
                 self.authAlert.dismiss(animated: true, completion: nil)
             }
-            
             self.authTimeout()
         }
     }
     
-    func authTimeout(){
+    func authTimeout() {
         DispatchQueue.main.async {
             self.resetAppNotification()
-            self.timer.invalidate()
+            self.timer?.invalidate()
             self.context.invalidate()
             self.moveToStatusVC(status: .timeout)
         }
     }
     
-    func resetAppNotification(){
+    func resetAppNotification() {
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
             print("Error accessing AppDelegate")
             return
@@ -176,10 +175,10 @@ class AuthenticationViewController: MainViewController {
         appDelegate.notificationObject = nil
     }
     
-    func moveToStatusVC(status: authStatus){
-        self.timer.invalidate()
+    func moveToStatusVC(status: authStatus) {
+        self.timer?.invalidate()
         
-        if let story = self.storyboard{
+        if let story = self.storyboard {
             if let statusVc = story.instantiateViewController(withIdentifier: ViewControllerKeys.StatusVcID) as? StatusViewController {
                 statusVc.isAuth = true
                 statusVc.authStatus = status
@@ -197,7 +196,7 @@ class AuthenticationViewController: MainViewController {
         }
     }
     
-    //MARK: Biometrics logic
+    // MARK: Biometrics logic
     
     func authenticateStart() {
         notificationView.isHidden = true
@@ -210,44 +209,38 @@ class AuthenticationViewController: MainViewController {
     }
         
     func startBiometricsAuth(policy: LAPolicy) {
-        
-        if !self.timer.isValid {
+        guard let timerIsValid = timer?.isValid else {
+            return
+        }
+        if !timerIsValid {
             self.authTimeout()
         }
-        
         var error: NSError?
-        
         if context.canEvaluatePolicy(policy, error: &error) {
             let reason = pushMessage ?? "identify_with_biometrics_msg".localized
             
-            context.evaluatePolicy(policy, localizedReason: reason) {
-                [weak self] success, authenticationError in
-
+            context.evaluatePolicy(policy, localizedReason: reason) { [weak self] success, authenticationError in
                 DispatchQueue.main.async {
                     self?.startLoadingAnimation()
 
-                    if (authenticationError != nil) { //User failed biometrices login
+                    if authenticationError != nil { // User failed biometrices login
                     
                         if let error = authenticationError as? LAError {
                             let errorCode = Int32(error.errorCode)
                             
                             if errorCode == kLAErrorUserFallback {
                                 self?.startBiometricsAuth(policy: .deviceOwnerAuthentication)
-                            }
-                            else if errorCode == kLAErrorPasscodeNotSet {
+                            } else if errorCode == kLAErrorPasscodeNotSet {
                                 self?.biometricFallback()
-                            }
-                            else {
+                            } else {
                                 self?.denyProcess()
                             }
                         }
-                    }
-                    else {
+                    } else {
                         if success {
                             self?.approvalProcess()
-                        }
-                        else {
-                            if let timerValid = self?.timer.isValid {
+                        } else {
+                            if let timerValid = self?.timer?.isValid {
                                 if timerValid {
                                     self?.denyProcess()
                                 } else {
@@ -260,12 +253,12 @@ class AuthenticationViewController: MainViewController {
             }
             
         } else {
-            //Biometrics not registered, Approve or Deny with UI on screen
+            // Biometrics not registered, Approve or Deny with UI on screen
             biometricFallback()
         }
     }
     
-    func biometricFallback(){
+    func biometricFallback() {
         notificationView.isHidden = false
         isBiomertics = false
     }
@@ -275,22 +268,17 @@ class AuthenticationViewController: MainViewController {
         DispatchQueue.main.async {
             self.authAlert = UIAlertController(title: title, message: message, preferredStyle: .alert)
                        
-            let approveAction = UIAlertAction(title: "approve_button".localized, style: UIAlertAction.Style.default) {
-               UIAlertAction in
+            let approveAction = UIAlertAction(title: "approve_button".localized, style: UIAlertAction.Style.default) { UIAlertAction in
                 self.startBiometricsAuth(policy: .deviceOwnerAuthentication)
             }
-            let denyAction = UIAlertAction(title: "deny_button".localized, style: UIAlertAction.Style.default) {
-               UIAlertAction in
+            let denyAction = UIAlertAction(title: "deny_button".localized, style: UIAlertAction.Style.default) { UIAlertAction in
                 self.startLoadingAnimation()
                 self.denyProcess()
             }
-            
             self.authAlert.addAction(denyAction)
             self.authAlert.addAction(approveAction)
-            
             self.present(self.authAlert, animated: true, completion: nil)
         }
         
     }
 }
-
