@@ -2,7 +2,7 @@
 //  PasscodeView.swift
 //  Authenticator
 //
-//  Copyright © 2020 Ping Identity. All rights reserved.
+//  Copyright © 2019 Ping Identity. All rights reserved.
 //
 
 import UIKit
@@ -46,15 +46,10 @@ class PasscodeView: UIView {
         Bundle.main.loadNibNamed("PasscodeView", owner: self, options: nil)
         addSubview(contentView)
         contentView.frame = bounds
-        
         verticalProgressView.delegate = self
-        
         passcodeNumLbl.text = nil
         
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(appWillEnterForeground),
-                                               name: UIApplication.willEnterForegroundNotification,
-                                               object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(appWillEnterForeground), name: UIApplication.willEnterForegroundNotification, object: nil)
     }
     
     func update(passcode: OneTimePasscodeInfo) {
@@ -76,12 +71,12 @@ class PasscodeView: UIView {
     }
 }
 
-extension PasscodeView: VerticalProgressViewDelegateProtocol{
+extension PasscodeView: VerticalProgressViewDelegateProtocol {
     func didFinishAnimation() {
         delegate?.didAskForPasscode()
     }
     
-    func didAnimationColorChange(to color: UIColor){
+    func didAnimationColorChange(to color: UIColor) {
         self.passcodeNumLbl.textColor = color
     }
 }

@@ -33,4 +33,3 @@ extension UIDevice {
         return bottom > 0
    }
 }
-

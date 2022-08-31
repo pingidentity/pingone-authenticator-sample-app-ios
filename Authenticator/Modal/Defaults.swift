@@ -7,8 +7,8 @@
 
 import Foundation
 
-class Defaults{
-    class func defaults() -> UserDefaults{
+class Defaults {
+    class func defaults() -> UserDefaults {
         return UserDefaults.standard
     }
     
@@ -55,8 +55,8 @@ class Defaults{
         defaults().set(usersDict, forKey: DefaultsKeys.usersDefaultKey)
     }
     
-    class func getUsersData() -> [String : String] {
-        return defaults().object(forKey: DefaultsKeys.usersDefaultKey) as? [String : String] ?? [:]
+    class func getUsersData() -> [String: String] {
+        return defaults().object(forKey: DefaultsKeys.usersDefaultKey) as? [String: String] ?? [:]
     }
         
     class func sync() {

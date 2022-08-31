@@ -20,8 +20,8 @@ class NotificationsViewController: MainViewController {
         }
         appDelegate.registerRemoteNotifications {
             Defaults.increaseNotificationPermissionCounter()
-            DispatchQueue.main.async{
-                if let navigation = self.navigationController as? NavigationController, let story = self.storyboard{
+            DispatchQueue.main.async {
+                if let navigation = self.navigationController as? NavigationController, let story = self.storyboard {
                     let vc = story.instantiateViewController(withIdentifier: ViewControllerKeys.PairVcID) as! PairViewController
                     navigation.pushViewController(vc, animated: true)
                 }
@@ -34,7 +34,12 @@ class NotificationsViewController: MainViewController {
         setupScreenTexts()
     }
     
-    func setupScreenTexts(){
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        hideNavBarButtons()
+    }
+    
+    func setupScreenTexts() {
         vcTitle.text = "notification_title".localized
         let appName = Bundle.main.infoDictionary![kCFBundleNameKey as String] as? String ?? "defualt_app_name".localized
         vcBody.text = "\(appName) \("notification_body".localized)"

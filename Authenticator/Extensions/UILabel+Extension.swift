@@ -2,7 +2,7 @@
 //  UILabel+Extension.swift
 //  Authenticator
 //
-//  Copyright © 2020 Ping Identity. All rights reserved.
+//  Copyright © 2019 Ping Identity. All rights reserved.
 //
 
 import UIKit

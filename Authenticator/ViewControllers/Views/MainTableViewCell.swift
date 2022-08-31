@@ -2,7 +2,7 @@
 //  MainTableViewCell.swift
 //  Authenticator
 //
-//  Copyright © 2022 Ping Identity. All rights reserved.
+//  Copyright © 2019 Ping Identity. All rights reserved.
 //
 
 import UIKit
@@ -23,7 +23,7 @@ class MainTableViewCell: UITableViewCell {
         setupBorders()
     }
 
-    func setupBorders(){
+    func setupBorders() {
         if isFirstCell {
             let topBorder = UIView(frame: CGRect(x: 0, y: 0, width: self.frame.size.width + 20, height: 0.5))
             topBorder.backgroundColor = .customLightGrey

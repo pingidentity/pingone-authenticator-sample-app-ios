@@ -16,7 +16,7 @@ class SideMenuVC: MainViewController, UITableViewDelegate, UITableViewDataSource
     @IBOutlet weak var ticketIdLbl: UILabel!
     @IBOutlet weak var versionLbl: UILabel!
     
-    private var menuItems : NSMutableArray = []
+    private var menuItems: NSMutableArray = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,13 +32,13 @@ class SideMenuVC: MainViewController, UITableViewDelegate, UITableViewDataSource
         setupHeader()
     }
     
-    func setupListeners(){
-        NotificationCenter.default.addObserver(self,selector: #selector(sideMenuWasToggled), name: NSNotification.Name(NotificationKeys.toggleSideMenuStart), object: nil)
-        NotificationCenter.default.addObserver(self,selector: #selector(sideMenuWasToggleEnded), name: NSNotification.Name(NotificationKeys.toggleSideMenuEnd), object: nil)
-        NotificationCenter.default.addObserver(self,selector: #selector(sendLogs), name: NSNotification.Name(NotificationKeys.sendLogs), object: nil)
+    func setupListeners() {
+        NotificationCenter.default.addObserver(self, selector: #selector(sideMenuWasToggled), name: NSNotification.Name(NotificationKeys.toggleSideMenuStart), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(sideMenuWasToggleEnded), name: NSNotification.Name(NotificationKeys.toggleSideMenuEnd), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(sendLogs), name: NSNotification.Name(NotificationKeys.sendLogs), object: nil)
     }
     
-    func setupActionsTable(){
+    func setupActionsTable() {
         if Defaults.getSupportID().count > 0 {
            self.ticketIdLbl.text = "Support ID: \(Defaults.getSupportID())"
         } else {
@@ -54,14 +54,14 @@ class SideMenuVC: MainViewController, UITableViewDelegate, UITableViewDataSource
         menuTableView.reloadData()
     }
     
-    func loadActions(){
+    func loadActions() {
         if Defaults.isPaired() {
             menuItems[0] = DefaultsKeys.sendLogsKey
         }
         menuTableView.reloadData()
     }
     
-    func setupHeader(){
+    func setupHeader() {
         let navBar: NavBar = UIView.fromNib()
         upperView.frame = navBar.frame
         upperView.backgroundColor = .white
@@ -69,7 +69,7 @@ class SideMenuVC: MainViewController, UITableViewDelegate, UITableViewDataSource
         self.view.setNeedsLayout()
     }
     
-    func setupLowerDetailsLables(){
+    func setupLowerDetailsLables() {
         ticketIdLbl.textColor = UIColor.lightGray
         ticketIdLbl.font = UIFont.systemFont(ofSize: 12, weight: UIFont.Weight.medium)
         versionLbl.textColor = UIColor.lightGray
@@ -80,7 +80,7 @@ class SideMenuVC: MainViewController, UITableViewDelegate, UITableViewDataSource
         versionLbl.text = "v\(version) (\(build))"
     }
     
-    //MARK: Tableview delegate methods
+    // MARK: Tableview delegate methods
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return menuItems.count
@@ -89,27 +89,28 @@ class SideMenuVC: MainViewController, UITableViewDelegate, UITableViewDataSource
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: DefaultsKeys.menuTableViewCellKey, for: indexPath) as! MenuTableViewCell
         switch indexPath.row {
-            case 0:
-                cell.menuNameLbl.text = "send_logs".localized
-            default:
-                cell.menuNameLbl.text = "send_logs".localized
+        case 0:
+            cell.menuNameLbl.text = "send_logs".localized
+        default:
+            cell.menuNameLbl.text = "send_logs".localized
         }
         return cell
     }
      
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         NotificationCenter.default.post(name: NSNotification.Name(NotificationKeys.toggleSideMenuStart), object: nil)
-        
+    
         switch indexPath.row {
-            case 0: NotificationCenter.default.post(name: NSNotification.Name(NotificationKeys.sendLogs), object: nil)
+        case 0:
+            NotificationCenter.default.post(name: NSNotification.Name(NotificationKeys.sendLogs), object: nil)
         default:
             break
         }
     }
     
-    //MARK: Handle Notifications
+    // MARK: Handle Notifications
     
-    @objc func sideMenuWasToggled(){
+    @objc func sideMenuWasToggled() {
         loadActions()
         dropShadowForSideMenu()
     }
@@ -138,11 +139,11 @@ class SideMenuVC: MainViewController, UITableViewDelegate, UITableViewDataSource
         appDelegate.containerVc?.startLoadingAnimation()
         
         PingOne.sendLogs { (supportId, error) in
-            if let supportId = supportId{
+            if let supportId = supportId {
                 print("Support ID:\(supportId)")
                 Defaults.setSupportID(idStr: supportId)
                 
-                DispatchQueue.main.async{
+                DispatchQueue.main.async {
                     appDelegate.containerVc?.stopLoadingAnimation()
                     
                     let alert = UIAlertController(title: "send_logs_title".localized, message: "send_logs_msg".localized, preferredStyle: .alert)
@@ -151,8 +152,7 @@ class SideMenuVC: MainViewController, UITableViewDelegate, UITableViewDataSource
                     self.present(alert, animated: true, completion: nil)
                     self.ticketIdLbl.text = "Support ID: \(supportId)"
                 }
-            }
-            else if let error = error{
+            } else if let error = error {
                 print("error sending logs: \(error.debugDescription)")
             }
         }

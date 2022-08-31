@@ -15,29 +15,29 @@ class ContainerVC: MainViewController {
     private let overlayView = UIView()
     private let shadeView = UIView()
     private var sideMenuOpen = false
-    private let sideGap : CGFloat = UIScreen.main.bounds.size.width * 0.45
-    private let darkMode : CGFloat = 0.3
-    private let clearMode : CGFloat = 0
+    private let sideGap: CGFloat = UIScreen.main.bounds.size.width * 0.45
+    private let darkMode: CGFloat = 0.3
+    private let clearMode: CGFloat = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        NotificationCenter.default.addObserver(self,selector: #selector(toggleSideMenu), name: NSNotification.Name(NotificationKeys.toggleSideMenuStart), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(toggleSideMenu), name: NSNotification.Name(NotificationKeys.toggleSideMenuStart), object: nil)
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(handleOverlayViewTap))
         self.overlayView.addGestureRecognizer(tap)
         
-        //Setup container views initial width
+        // Setup container views initial width
         sideMenuWidthConstraint.constant = 0
     }
     
-    func deint(){
+    func deint() {
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name(NotificationKeys.toggleSideMenuStart), object: nil)
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name(NotificationKeys.toggleSideMenuEnd), object: nil)
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name(NotificationKeys.sendLogs), object: nil)
     }
     
-    func initOverlayView(){      
+    func initOverlayView() {
         overlayView.backgroundColor = .black
         overlayView.alpha = self.clearMode
         overlayView.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height)
@@ -69,25 +69,26 @@ class ContainerVC: MainViewController {
         let openRect = CGRect(x: 0, y: 0, width: self.view.frame.width - self.sideGap, height: self.view.frame.height)
         let closedRect = CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height)
         
-        //Open side menu
-        if sideMenuOpen {UIView.animate(withDuration: 0.75, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 12, options: .curveEaseInOut, animations: {
-                self.overlayView.frame = (self.sideMenuOpen) ? openRect : closedRect
-                self.overlayView.alpha = (self.sideMenuOpen) ? self.darkMode : self.clearMode
+        // Open side menu
+        if sideMenuOpen {
+            UIView.animate(withDuration: 0.75, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 12, options: .curveEaseInOut) {
+                self.overlayView.frame = (self.sideMenuOpen) ? openRect: closedRect
+                self.overlayView.alpha = (self.sideMenuOpen) ? self.darkMode: self.clearMode
                 self.view.layoutIfNeeded()
-            }) { _ in
+            } completion: { _ in
             }
-        } else { //Close side menu
-            UIView.animate(withDuration: 0.5, delay: 0, animations: {
-                self.overlayView.frame = (self.sideMenuOpen) ? openRect : closedRect
-                self.overlayView.alpha = (self.sideMenuOpen) ? self.darkMode : self.clearMode
+        } else { // Close side menu
+            UIView.animate(withDuration: 0.5, delay: 0) {
+                self.overlayView.frame = (self.sideMenuOpen) ? openRect: closedRect
+                self.overlayView.alpha = (self.sideMenuOpen) ? self.darkMode: self.clearMode
                 self.view.layoutIfNeeded()
-            }) { (staus) in
+            } completion: { _ in
                 NotificationCenter.default.post(name: NSNotification.Name(NotificationKeys.toggleSideMenuEnd), object: nil)
             }
         }
     }
     
-    @objc func handleOverlayViewTap(){
+    @objc func handleOverlayViewTap() {
         NotificationCenter.default.post(name: NSNotification.Name(NotificationKeys.toggleSideMenuStart), object: nil)
     }
 }

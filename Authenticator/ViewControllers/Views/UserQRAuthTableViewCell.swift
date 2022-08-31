@@ -2,7 +2,7 @@
 //  UserQRAuthTableViewCell.swift
 //  Authenticator
 //
-//  Copyright © 2022 Ping Identity. All rights reserved.
+//  Copyright © 2019 Ping Identity. All rights reserved.
 //
 
 import UIKit
@@ -19,15 +19,15 @@ class UserQRAuthTableViewCell: MainTableViewCell {
         super.awakeFromNib()
     }
     
-    func setCheckmarkOn(){
+    func setCheckmarkOn() {
         selectedImageView.image = UIImage.init(named: AssetsName.checkmarkOn)
     }
     
-    func setCheckmarkOff(){
+    func setCheckmarkOff() {
         selectedImageView.image = UIImage.init(named: AssetsName.checkmarkOff)
     }
     
-    func setCheckmarkHidden(){
+    func setCheckmarkHidden() {
         selectedImageView.isHidden = true
     }
 

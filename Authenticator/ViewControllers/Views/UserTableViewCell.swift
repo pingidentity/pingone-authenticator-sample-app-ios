@@ -16,15 +16,15 @@ class UserTableViewCell: MainTableViewCell, UITextFieldDelegate {
     @IBOutlet weak var userFullnameTextEdit: UITextField!
     @IBOutlet weak var saveUserBtn: UIButton!
     
-    var delegate: UserTableViewCellDelegate?
-    var synchedUser : User?
-    var userFromServer : User?
+    weak var delegate: UserTableViewCellDelegate?
+    var synchedUser: User?
+    var userFromServer: User?
     
     var isEditMode: Bool = false
     var isUsersTableInEditMode: Bool = false
     var usersDictStorage = Defaults.getUsersData()
     
-    private enum editImage: String{
+    private enum editImage: String {
         case edit = "icon_edit"
         case save = "button_blue_checkmark"
     }
@@ -36,7 +36,7 @@ class UserTableViewCell: MainTableViewCell, UITextFieldDelegate {
         userFullnameTextEdit.delegate = self
     }
     
-    func setupEditText(){
+    func setupEditText() {
         userFullnameTextEdit.layer.cornerRadius = 3
         userFullnameTextEdit.layer.masksToBounds = true
         
@@ -58,16 +58,16 @@ class UserTableViewCell: MainTableViewCell, UITextFieldDelegate {
         
         if appDelegate.isKeyboardVisible && self.isEditMode {
             startNameEdit()
-        } else if appDelegate.isKeyboardVisible && !self.isEditMode{
+        } else if appDelegate.isKeyboardVisible && !self.isEditMode {
             return
         } else {
             startNameEdit()
         }
     }
     
-    func startNameEdit(){
+    func startNameEdit() {
         
-        self.isEditMode = !self.isEditMode
+        isEditMode.toggle()
         changeCellEditMode(isEditing: isEditMode)
         
         if !self.isEditMode {
@@ -75,8 +75,7 @@ class UserTableViewCell: MainTableViewCell, UITextFieldDelegate {
                 if userTextEdit.count > 0 {
                     usersDictStorage[user.id] = userTextEdit
                     Defaults.setUserData(id: user.id, name: usersDictStorage[user.id] ?? "")
-                }
-                else { //Return to server value if cleaned
+                } else { // Return to server value if cleaned
                     userFullnameTextEdit!.text = "\(userFromServer.name.given ?? "") \(userFromServer.name.family ?? "")"
                     Defaults.setUserData(id: userFromServer.id, name: userFullnameTextEdit!.text ?? "")
                 }
@@ -95,7 +94,7 @@ class UserTableViewCell: MainTableViewCell, UITextFieldDelegate {
         return self.isEditMode
     }
     
-    func changeCellEditMode(isEditing: Bool){
+    func changeCellEditMode(isEditing: Bool) {
         if isEditing {
             userFullnameTextEdit.becomeFirstResponder()
             startUserEditing()
@@ -105,7 +104,7 @@ class UserTableViewCell: MainTableViewCell, UITextFieldDelegate {
         }
     }
     
-    func startUserEditing(){
+    func startUserEditing() {
         userFullnameTextEdit.borderColor = UIColor.customLightGrey
         
         let imageName = editImage.save
@@ -113,7 +112,7 @@ class UserTableViewCell: MainTableViewCell, UITextFieldDelegate {
         saveUserBtn.setImage(editImageName, for: .normal)
     }
     
-    func endUserEditing(){
+    func endUserEditing() {
         userFullnameTextEdit.borderColor = UIColor.clear
         
         let imageName = editImage.edit

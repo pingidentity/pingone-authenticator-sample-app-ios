@@ -24,11 +24,11 @@ class StatusViewController: MainViewController {
     var isAuth = false
     var isPairing = false
     var isAuthQRCode = false
-    var authStatus: authStatus!
+    var authStatus: authStatus?
     var color: UIColor?
     var message: String?
     
-    //QR code data
+    // QR code data
     var authObject: AuthenticationObject?
     
     override func viewDidLoad() {
@@ -38,12 +38,11 @@ class StatusViewController: MainViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        if !self.isAuth {
+        if !isAuth {
             self.statusBackgroundView.backgroundColor = .customBlueVerify
             spinnerImageView.rotate()
             statusMessage.text = "verifying".localized
-        }
-        else if self.isAuth == true{
+        } else if isAuth == true {
             setAuthMsg()
             switch self.authStatus {
             case .success, .completed:
@@ -58,18 +57,18 @@ class StatusViewController: MainViewController {
         }
     }
     
-    func setAuthMsg(){
+    func setAuthMsg() {
         statusMessage.text = self.message
     }
     
-    func showAuth(){
+    func showAuth() {
         self.view.setNeedsLayout()
         var imageName: String
         
         switch self.authStatus {
         case .success:
             imageName = "icon_checkmark"
-            if isAuth || isAuthQRCode{
+            if isAuth || isAuthQRCode {
                 message = "approved".localized
             } else if isPairing {
                 message = "paired".localized
@@ -82,7 +81,7 @@ class StatusViewController: MainViewController {
                 message = "blocked".localized
             }
             
-            if !isPairing {
+            if !isPairing && !isAuthQRCode {
                 message = "error".localized
             }
             
@@ -114,40 +113,40 @@ class StatusViewController: MainViewController {
         self.spinnerImageView.image = UIImage.init(named: imageName)
     }
     
-    func success(){
+    func success() {
         showAuth()
         setAuthMsg()
         self.spinnerImageView.layer.removeAllAnimations()
         self.dismissSelf()
     }
     
-    func continueToUsersSelection(){
+    func continueToUsersSelection() {
         self.dismissSelf()
     }
     
-    func timeout(){
+    func timeout() {
         showAuth()
         setAuthMsg()
         self.spinnerImageView.layer.removeAllAnimations()
         self.dismissSelf()
     }
     
-    func failure(){
+    func failure() {
         showAuth()
         setAuthMsg()
         self.spinnerImageView.layer.removeAllAnimations()
         self.dismissSelf()
     }
     
-    func denied(){
+    func denied() {
         showAuth()
         setAuthMsg()
         self.spinnerImageView.layer.removeAllAnimations()
         self.dismissSelf()
     }
     
-    func dismissSelf(){
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5){
+    func dismissSelf() {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
             self.dismiss(animated: true, completion: {
                 self.spinnerImageView.layer.removeAllAnimations()
             })

@@ -16,8 +16,8 @@ class UsersViewController: MainViewController, UITableViewDelegate, UITableViewD
     @IBOutlet weak var addNewUserBtn: UIButton!
     @IBOutlet weak var passcodeViewTopConstraint: NSLayoutConstraint!
     
-    private var activeUser : ActiveUser = ActiveUser()
-    private let usersHandler : UsersHandler = UsersHandler()
+    private var activeUser: ActiveUser = ActiveUser()
+    private let usersHandler: UsersHandler = UsersHandler()
     private var activeUsersArray: [User]?
     private var usersFromServer: [User]?
     
@@ -32,14 +32,14 @@ class UsersViewController: MainViewController, UITableViewDelegate, UITableViewD
         setupPasscode()
     }
     
-    //MARK: Lifecycle
+    // MARK: Lifecycle
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         getUsers()
     }
 
-    func setupScreen(){
+    func setupScreen() {
         usersTableView.separatorColor = UIColor.clear
         
         usersTableTitleLbl.text = "users_table_title".localized
@@ -72,16 +72,14 @@ class UsersViewController: MainViewController, UITableViewDelegate, UITableViewD
         }
     }
     
-    @objc private func scanQRMenuTapped(){
-        if let navigation = self.navigationController as? NavigationController, let story = self.storyboard, let pairVc = story.instantiateViewController(withIdentifier: ViewControllerKeys.PairVcID) as? PairViewController {
+    @objc private func scanQRMenuTapped() {
+        if let navigation = self.navigationController as? NavigationController, let story = self.storyboard, let authCodeVc = story.instantiateViewController(withIdentifier: ViewControllerKeys.AuthScanVcID) as? AuthCodeScanViewController {
             navigation.modalTransitionStyle = .crossDissolve
-            pairVc.isPairingScreen = false
             
             if let viewControllers = self.navigationController?.viewControllers {
                 for controller in viewControllers {
-                    if controller is PairViewController {
-                        if let pairingViewController = controller as? PairViewController {
-                            pairingViewController.isPairingScreen = false
+                    if controller is AuthCodeScanViewController {
+                        if let pairingViewController = controller as? AuthCodeScanViewController {
                             navigation.popToViewController(pairingViewController, animated: true)
                             return
                         }
@@ -89,18 +87,18 @@ class UsersViewController: MainViewController, UITableViewDelegate, UITableViewD
                 }
             }
 
-            navigation.pushViewController(pairVc, animated: true)
+            navigation.pushViewController(authCodeVc, animated: true)
         }
     }
     
-    //MARK: Load Users
+    // MARK: Load Users
     
-    func getUsers(){
+    func getUsers() {
         startLoadingAnimation()
         PingOne.getInfo { (activeUsers, error) in
                 if let error = error {
                     self.stopLoadingAnimation()
-                    if error.code == ErrorCode.deviceIsNotPaired.rawValue{
+                    if error.code == ErrorCode.deviceIsNotPaired.rawValue {
                         Defaults.setPaired(isPaired: false)
                     }
                 }
@@ -141,7 +139,7 @@ class UsersViewController: MainViewController, UITableViewDelegate, UITableViewD
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
-        let cell : UserTableViewCell? = (tableView.dequeueReusableCell(withIdentifier: DefaultsKeys.userTableViewCellKey) as! UserTableViewCell)
+        let cell: UserTableViewCell? = (tableView.dequeueReusableCell(withIdentifier: DefaultsKeys.userTableViewCellKey) as! UserTableViewCell)
         cell?.delegate = self
         
         let userFromServer = self.usersFromServer?[indexPath.row]
@@ -153,18 +151,18 @@ class UsersViewController: MainViewController, UITableViewDelegate, UITableViewD
         let userName = "\(user?.name.given ?? "") \(user?.name.family ?? "")"
         cell?.userFullnameTextEdit!.text = userName
         
-        //Default user name
+        // Default user name
         if userName.trimmingCharacters(in: .whitespaces).isEmpty {
             cell?.userFullnameTextEdit!.text = "User 0\(indexPath.row + 1)"
         }
         
-        //Get user name from local storage if exists
+        // Get user name from local storage if exists
         if let userID = user?.id, let userNameFromStorage = usersDictStorage[userID], !userNameFromStorage.trimmingCharacters(in: .whitespaces).isEmpty {
             cell?.userFullnameTextEdit!.text = userNameFromStorage
         }
        
-        //Layout cell
-        if indexPath.row == 0 && cell?.isFirstCell == false{
+        // Layout cell
+        if indexPath.row == 0 && cell?.isFirstCell == false {
             cell?.isFirstCell = true
         }
         cell?.setupBorders()
@@ -182,8 +180,8 @@ class UsersViewController: MainViewController, UITableViewDelegate, UITableViewD
         moveToPairing()
     }
     
-    func startEditNewUserIfNeeded(){
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5){
+    func startEditNewUserIfNeeded() {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
             self.view.isUserInteractionEnabled = false
             self.view.layoutIfNeeded()
             self.usersTableView.reloadData()
@@ -192,7 +190,7 @@ class UsersViewController: MainViewController, UITableViewDelegate, UITableViewD
             let indexPath = IndexPath(item: lastObject - 1, section: 0)
             self.usersTableView.scrollToRow(at: indexPath, at: UITableView.ScrollPosition.bottom, animated: true)
             
-            let cell : UserTableViewCell? = self.usersTableView.cellForRow(at: indexPath) as? UserTableViewCell
+            let cell: UserTableViewCell? = self.usersTableView.cellForRow(at: indexPath) as? UserTableViewCell
             self.view.layoutIfNeeded()
             
             cell?.isEditMode = true
@@ -203,21 +201,17 @@ class UsersViewController: MainViewController, UITableViewDelegate, UITableViewD
         }
     }
     
-    func moveToPairing(){
+    func moveToPairing() {
         DispatchQueue.main.async {
             if let navigation = self.navigationController as? NavigationController, let story = self.storyboard, let pairVc = story.instantiateViewController(withIdentifier: ViewControllerKeys.PairVcID) as? PairViewController {
                 self.usersTableView.reloadData()
                 navigation.modalTransitionStyle = .crossDissolve
-                pairVc.isPairingScreen = true
                 
                 var wasPairingVCPresented = false
                 if let viewControllers = self.navigationController?.viewControllers {
                     for controller in viewControllers {
                         if controller is PairViewController {
-                            if let pairingViewController = controller as? PairViewController {
-                                pairingViewController.isPairingScreen = true
-                                navigation.popToViewController(controller, animated: true)
-                            }
+                            navigation.popToViewController(controller, animated: true)
                             wasPairingVCPresented = true
                             break
                         }
@@ -231,9 +225,9 @@ class UsersViewController: MainViewController, UITableViewDelegate, UITableViewD
         }
     }
     
-    //MARK: handle UserTableViewCellDelegate
+    // MARK: handle UserTableViewCellDelegate
     
-    func userNameUpdateDone(){
+    func userNameUpdateDone() {
         if let users = self.usersFromServer {
             self.activeUsersArray = self.usersHandler.getSynchedUsers(users)
             self.usersDictStorage = Defaults.getUsersData()

@@ -19,10 +19,10 @@ class NavigationController: UINavigationController {
         routeViewControllers()
     }
     
-    func routeViewControllers(){
+    func routeViewControllers() {
         
-        if let story = self.storyboard{
-            let vc :UIViewController
+        if let story = self.storyboard {
+            let vc: UIViewController
             self.navBar.sideMenuBtn.isHidden = true
             guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
                 print("Error accessing AppDelegate")
@@ -30,15 +30,13 @@ class NavigationController: UINavigationController {
             }
             appDelegate.navigationVc = self
             
-            if Defaults.isPaired(){
+            if Defaults.isPaired() {
                 self.navBar.sideMenuBtn.isHidden = false
                 vc = story.instantiateViewController(withIdentifier: ViewControllerKeys.UsersVcID)
-            }
-            else{
+            } else {
                 if Defaults.getNotificationPermissionCounter() == 0 {
                     vc = story.instantiateViewController(withIdentifier: ViewControllerKeys.NotificationVcID)
-                }
-                else{
+                } else {
                     vc = story.instantiateViewController(withIdentifier: ViewControllerKeys.PairVcID)
                 }
             }

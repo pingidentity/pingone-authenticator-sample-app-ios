@@ -2,7 +2,7 @@
 //  VerticalProgressView.swift
 //  Authenticator
 //
-//  Copyright © 2020 Ping Identity. All rights reserved.
+//  Copyright © 2019 Ping Identity. All rights reserved.
 //
 
 import Foundation
@@ -14,12 +14,12 @@ protocol VerticalProgressViewDelegateProtocol: AnyObject {
 }
 
 @IBDesignable
-class VerticalProgressView : UIView {
+class VerticalProgressView: UIView {
     
-    @IBInspectable var berzeirPathColor : UIColor = UIColor.customBerzeirPathColor
+    @IBInspectable var berzeirPathColor: UIColor = UIColor.customBerzeirPathColor
     
-    @IBInspectable var baseBackgroundColor : UIColor = UIColor.customBackgroundColor
-    @IBInspectable var finaleBackgroundColor : UIColor = UIColor.customRed
+    @IBInspectable var baseBackgroundColor: UIColor = UIColor.customBackgroundColor
+    @IBInspectable var finaleBackgroundColor: UIColor = UIColor.customRed
     
     private var animationLayer: CAShapeLayer = CAShapeLayer()
     private static let animationLayerKeyPath = "VerticalProgressViewStroke"
@@ -95,11 +95,10 @@ class VerticalProgressView : UIView {
     private func createAnimation(for timePercentage: Double, in timeWindow: TimeInterval) {
         var shouldChangeToFinaleBackgroundColor = false
         
-        if (timePercentage/timeWindow < percentToFinale) {
+        if timePercentage/timeWindow < percentToFinale {
             changeBackround(to: baseBackgroundColor)
             shouldChangeToFinaleBackgroundColor = true
-        }
-        else {
+        } else {
             changeBackround(to: finaleBackgroundColor)
         }
         
@@ -113,13 +112,13 @@ class VerticalProgressView : UIView {
         
         CATransaction.begin()
 
-        let path : UIBezierPath = UIBezierPath()
+        let path: UIBezierPath = UIBezierPath()
         path.move(to: CGPoint(x: self.bounds.width / 2, y: CGFloat(startAnimationPercentageHeight)))
-        path.addLine(to: CGPoint(x:  self.bounds.width / 2, y: self.frame.height))
+        path.addLine(to: CGPoint(x: self.bounds.width / 2, y: self.frame.height))
         
         animationLayer.path = path.cgPath
 
-        let animation : CABasicAnimation = CABasicAnimation(keyPath: "strokeEnd")
+        let animation: CABasicAnimation = CABasicAnimation(keyPath: "strokeEnd")
         animation.fromValue = 0.0
         animation.toValue = 1.0
 
@@ -131,7 +130,7 @@ class VerticalProgressView : UIView {
                 self.changeBackround(to: self.finaleBackgroundColor)
             }
         }
-        CATransaction.setCompletionBlock{ [weak self] in
+        CATransaction.setCompletionBlock { [weak self] in
             switch UIApplication.shared.applicationState {
             case .active:
                 self?.delegate?.didFinishAnimation()
