@@ -20,6 +20,7 @@
 		6931D2F72434963D006A0F74 /* UsersHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6931D2EF2434963C006A0F74 /* UsersHandler.swift */; };
 		6931D2F92434963D006A0F74 /* QRCapture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6931D2F02434963C006A0F74 /* QRCapture.swift */; };
 		6931D2FB2434963D006A0F74 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6931D2F12434963C006A0F74 /* Constants.swift */; };
+		693D7163296571B20068E5B7 /* PingOneSDK in Frameworks */ = {isa = PBXBuildFile; productRef = 693D7162296571B20068E5B7 /* PingOneSDK */; };
 		6943FD1C28439247004951B6 /* AuthCodeScanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6943FD1B28439247004951B6 /* AuthCodeScanViewController.swift */; };
 		697CC68A2407A3E00020C9F4 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 697CC6882407A3E00020C9F4 /* MainViewController.swift */; };
 		69AAD82123F2B07100678029 /* UIDevice+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69AAD81F23F2B07100678029 /* UIDevice+Extension.swift */; };
@@ -117,6 +118,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				693D7163296571B20068E5B7 /* PingOneSDK in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -249,7 +251,6 @@
 				7BB43B4223A6332B004C7317 /* Frameworks */,
 				7BB43B4423A6332B004C7317 /* Resources */,
 				7BB43B4A23A6332B004C7317 /* Embed Frameworks */,
-				696F7D59284E14280015A6C4 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -257,6 +258,7 @@
 			);
 			name = Authenticator;
 			packageProductDependencies = (
+				693D7162296571B20068E5B7 /* PingOneSDK */,
 			);
 			productName = Authenticator;
 			productReference = 7BB43B4F23A6332B004C7317 /* Authenticator.app */;
@@ -282,7 +284,7 @@
 			);
 			mainGroup = 7BD8DD8E2302936800AE34FB;
 			packageReferences = (
-				69BB31692963135A00212288 /* XCRemoteSwiftPackageReference "pingone-authenticator-sample-app-ios" */,
+				693D7161296571B20068E5B7 /* XCRemoteSwiftPackageReference "pingone-authenticator-sample-app-ios" */,
 			);
 			productRefGroup = 7BD8DD982302936800AE34FB /* Products */;
 			projectDirPath = "";
@@ -585,7 +587,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		69BB31692963135A00212288 /* XCRemoteSwiftPackageReference "pingone-authenticator-sample-app-ios" */ = {
+		693D7161296571B20068E5B7 /* XCRemoteSwiftPackageReference "pingone-authenticator-sample-app-ios" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/pingidentity/pingone-authenticator-sample-app-ios.git";
 			requirement = {
@@ -594,6 +596,14 @@
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		693D7162296571B20068E5B7 /* PingOneSDK */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 693D7161296571B20068E5B7 /* XCRemoteSwiftPackageReference "pingone-authenticator-sample-app-ios" */;
+			productName = PingOneSDK;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 7BD8DD8F2302936800AE34FB /* Project object */;
 }
