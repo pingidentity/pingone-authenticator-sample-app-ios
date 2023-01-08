@@ -591,7 +591,7 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/pingidentity/pingone-authenticator-sample-app-ios.git";
 			requirement = {
-				branch = v1.5.1;
+				branch = master;
 				kind = branch;
 			};
 		};
