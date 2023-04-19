@@ -1,5 +1,11 @@
 # Release Notes
 
+## v1.6.0 - April 19th, 2023
+Features:
+
+- Updated SDK to version 1.9.0.
+- Bug fixes and performance improvement.
+
 ## v1.5.1 - Jan 4th, 2023
 Features:
 
