@@ -11,7 +11,6 @@
 		25498C4A259152F60032EF87 /* UILabel+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25498C48259152F60032EF87 /* UILabel+Extension.swift */; };
 		25ED6338258BA01000CDEA54 /* PasscodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25ED6336258BA01000CDEA54 /* PasscodeView.swift */; };
 		25ED633B258BA0DE00CDEA54 /* PasscodeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 25ED6339258BA0DE00CDEA54 /* PasscodeView.xib */; };
-		6920D92329D29F22003E3A0C /* PingOneSDK in Frameworks */ = {isa = PBXBuildFile; productRef = 6920D92229D29F22003E3A0C /* PingOneSDK */; };
 		6921940927D5EBCE007BBB6B /* AuthCodeSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6921940827D5EBCE007BBB6B /* AuthCodeSelectionViewController.swift */; };
 		6921940B27D63054007BBB6B /* UserQRAuthTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6921940A27D63054007BBB6B /* UserQRAuthTableViewCell.swift */; };
 		6921940E27D645FC007BBB6B /* MainTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6921940D27D645FC007BBB6B /* MainTableViewCell.swift */; };
@@ -34,6 +33,7 @@
 		69E2C09A23FA881100C053B7 /* AlertBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69E2C09523FA881100C053B7 /* AlertBanner.swift */; };
 		69E2C09C23FA881100C053B7 /* NavBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69E2C09623FA881100C053B7 /* NavBar.swift */; };
 		69E2C0A423FA893200C053B7 /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69E2C0A223FA893200C053B7 /* Reachability.swift */; };
+		69F01CAF29911A0700BEF164 /* PingOneSDK in Frameworks */ = {isa = PBXBuildFile; productRef = 69F01CAE29911A0700BEF164 /* PingOneSDK */; };
 		7BB43B3423A6332B004C7317 /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD8DDAD2302AE9F00AE34FB /* UIView+Extension.swift */; };
 		7BB43B3623A6332B004C7317 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B6DC503239FD5DF00AFE834 /* String+Extension.swift */; };
 		7BB43B3923A6332B004C7317 /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BC1D35C232A748A00B9884C /* NavigationController.swift */; };
@@ -118,7 +118,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6920D92329D29F22003E3A0C /* PingOneSDK in Frameworks */,
+				69F01CAF29911A0700BEF164 /* PingOneSDK in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -259,7 +259,7 @@
 			);
 			name = Authenticator;
 			packageProductDependencies = (
-				6920D92229D29F22003E3A0C /* PingOneSDK */,
+				69F01CAE29911A0700BEF164 /* PingOneSDK */,
 			);
 			productName = Authenticator;
 			productReference = 7BB43B4F23A6332B004C7317 /* Authenticator.app */;
@@ -285,7 +285,7 @@
 			);
 			mainGroup = 7BD8DD8E2302936800AE34FB;
 			packageReferences = (
-				6920D92129D29F22003E3A0C /* XCRemoteSwiftPackageReference "pingone-mobile-sdk-ios" */,
+				69F01CAD29911A0700BEF164 /* XCRemoteSwiftPackageReference "pingone-mobile-sdk-ios" */,
 			);
 			productRefGroup = 7BD8DD982302936800AE34FB /* Products */;
 			projectDirPath = "";
@@ -329,7 +329,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n";
+            shellScript = "";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -412,7 +412,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Authenticator/Authenticator.entitlements;
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 562;
+				CURRENT_PROJECT_VERSION = 563;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = YZYUGL7S48;
 				ENABLE_BITCODE = NO;
@@ -426,7 +426,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.6.0;
+				MARKETING_VERSION = 1.7.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.pingIdentity.Authenticator;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "P14C Authenticator InHouse Development";
@@ -442,7 +442,7 @@
 				CODE_SIGN_ENTITLEMENTS = Authenticator/Authenticator.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 562;
+				CURRENT_PROJECT_VERSION = 563;
 				DEVELOPMENT_TEAM = YZYUGL7S48;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -455,7 +455,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.6.0;
+				MARKETING_VERSION = 1.7.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.pingIdentity.Authenticator;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "P14C Authenticator InHouse Distribution";
@@ -498,7 +498,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 562;
+				CURRENT_PROJECT_VERSION = 563;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
@@ -561,7 +561,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 562;
+				CURRENT_PROJECT_VERSION = 563;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -608,7 +608,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		6920D92129D29F22003E3A0C /* XCRemoteSwiftPackageReference "pingone-mobile-sdk-ios" */ = {
+		69F01CAD29911A0700BEF164 /* XCRemoteSwiftPackageReference "pingone-mobile-sdk-ios" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "git@gitlab.corp.pingidentity.com:github-clones/pingone-mobile-sdk-ios.git";
 			requirement = {
@@ -619,9 +619,9 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		6920D92229D29F22003E3A0C /* PingOneSDK */ = {
+		69F01CAE29911A0700BEF164 /* PingOneSDK */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 6920D92129D29F22003E3A0C /* XCRemoteSwiftPackageReference "pingone-mobile-sdk-ios" */;
+			package = 69F01CAD29911A0700BEF164 /* XCRemoteSwiftPackageReference "pingone-mobile-sdk-ios" */;
 			productName = PingOneSDK;
 		};
 /* End XCSwiftPackageProductDependency section */
