@@ -1,6 +1,6 @@
 # Release Notes
 
-## v1.7.0 - Jun 26th, 2023
+## v1.7.0 - Jun 29th, 2023
 Features:
 
 - Updated SDK to version 1.10.0.
