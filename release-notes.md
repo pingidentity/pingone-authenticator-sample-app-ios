@@ -1,6 +1,12 @@
 # Release Notes
 
-## v1.6.0 - April 19th, 2023
+## v1.7.0 - Jun 26th, 2023
+Features:
+
+- Updated SDK to version 1.10.0.
+- The PingOne MFA SDK has been updated to rotate encryption keys once a year. Key rotation events are written to the audit log.
+
+## v1.6.0 - April 1st, 2023
 Features:
 
 - Updated SDK to version 1.9.0.
